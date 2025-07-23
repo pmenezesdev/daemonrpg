@@ -1,0 +1,66 @@
+{
+  "Actor": {
+    "types": ["personagem"],
+    "templates": {
+      "base": {
+        "attributes": {
+          "fr": { "value": 10 },
+          "con": { "value": 10 },
+          "dex": { "value": 10 },
+          "agi": { "value": 10 },
+          "int": { "value": 10 },
+          "will": { "value": 10 },
+          "per": { "value": 10 },
+          "car": { "value": 10 }
+        },
+        "resources": {
+          "pv": { "value": 11, "max": 11, "label": "Pontos de Vida" },
+          "ph": { "value": 0, "max": 0, "label": "Pontos Heroicos" },
+          "magia": { "value": 0, "max": 0, "label": "Pontos de Magia" },
+          "focus": { "value": 0, "max": 0, "label": "Pontos de Focus" }
+        },
+        "details": {
+          "level": { "value": 1 },
+          "xp": { "value": 0 },
+          "biography": { "value": "" }
+        }
+      }
+    },
+    "personagem": {
+      "templates": ["base"]
+    }
+  },
+  "Item": {
+    "types": ["pericia", "aprimoramento", "arma", "armadura", "item"],
+    "templates": {
+      "base": {
+        "description": {
+          "value": ""
+        }
+      }
+    },
+    "pericia": {
+      "templates": ["base"],
+      "value": 0,
+      "attribute": "int"
+    },
+    "aprimoramento": {
+      "templates": ["base"],
+      "cost": 1
+    },
+    "arma": {
+      "templates": ["base"],
+      "attack": 0,
+      "defense": 0,
+      "damage": "1d6"
+    },
+    "armadura": {
+      "templates": ["base"],
+      "ip": 1
+    },
+    "item": {
+      "templates": ["base"],
+      "quantity": 1
+    }
+  }
+}

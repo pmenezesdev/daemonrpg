@@ -1,0 +1,47 @@
+{
+  "id": "daemonrpg",
+  "title": "Sistema Daemon",
+  "description": "Um sistema para o Foundry VTT baseado no RPG Daemon, de Marcelo Del Debbio, focado em cenários de horror e fantasia.",
+  "authors": [
+    {
+      "name": "Mestre Arboreal",
+      "discord": "arboreall"
+    }
+  ],
+  "url": "Replace this with a link to your public repository",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "bugs": "Replace this with a link to file issues or tickets",
+  "changelog": "CHANGELOG.md",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/daemonrpg/assets/daemon.png",
+      "thumbnail": "systems/daemonrpg/assets/daemon.png"
+    }
+  ],
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": 11,
+    "verified": "11.315"
+  },
+  "esmodules": ["module/daemonrpg.mjs"],
+  "styles": ["css/daemonrpg.css"],
+  "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-br.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+  "socket": false,
+  "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
+  "download": "This must link to a .zip file of the current version",
+  "background": "systems/daemonrpg/assets/daemon.png",
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "pv",
+  "secondaryTokenAttribute": "ph"
+}

@@ -1,0 +1,24 @@
+{
+  "daemonrpg": {
+    "Atributos": {
+      "fr": "Força",
+      "con": "Constituição",
+      "dex": "Destreza",
+      "agi": "Agilidade",
+      "int": "Inteligência",
+      "will": "Força de Vontade",
+      "per": "Percepção",
+      "car": "Carisma"
+    },
+    "Recursos": {
+      "pv": "PV",
+      "ph": "PH",
+      "magia": "Magia",
+      "focus": "Focus"
+    },
+    "SheetLabels": {
+      "Actor": "Ficha de Personagem Daemon",
+      "Item": "Ficha de Item Daemon"
+    }
+  }
+}
