@@ -1,21 +1,260 @@
-// Add custom fonts by visiting and search https://fonts.google.com
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+// Importa as fontes do Google
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Signika:wght@400;600&display=swap");
+// Importa nossas variáveis de design
+@import "components/variables";
+// ===================================
+//      ESTILO DA JANELA (WINDOW)
+// ===================================
+.app.daemonrpg .window-content {
+  background: $c-bg-primary;
+}
+// ===================================
+//      ESTILO BASE DA FICHA
+// ===================================
+.daemonrpg.sheet.actor {
+  font-family: $font-primary;
+  color: $c-text-primary;
+  min-width: 700px;
+  // Regras gerais para garantir a legibilidade
+  label,
+  span {
+    color: $c-text-primary;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: inherit;
+    border-bottom: none;
+  }
+  hr {
+    border-color: $c-border;
+  }
+  input[type="text"],
+  input[type="number"] {
+    background: darken($c-bg-secondary, 5%);
+    border: 1px solid $c-border;
+    border-radius: 3px;
+    color: $c-text-primary;
+    text-align: center;
+    &:focus {
+      border-color: $c-accent;
+      box-shadow: 0 0 5px $c-accent;
+    }
+  }
+  // ===================================
+  //      CABEÇALHO
+  // ===================================
+  .sheet-header {
+    flex: 0 0 auto;
+    border-bottom: 2px solid $c-border;
+    padding: $spacing-medium;
+    display: flex;
+    align-items: center;
+    .profile-img {
+      flex: 0 0 100px;
+      height: 100px;
+      border: 2px solid $c-border;
+      border-radius: 4px;
+      margin-right: $spacing-large;
+    }
+    .header-fields {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      .charname input {
+        width: 100%;
+        font-family: $font-headers;
+        font-size: 2.5em;
+        padding: 0;
+        margin: 0;
+        border: none;
+        background: none;
+        color: $c-text-primary;
+      }
+      .resources {
+        margin-top: $spacing-medium;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $spacing-medium;
+        .resource {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: $c-bg-secondary;
+          border: 1px solid $c-border;
+          border-radius: 4px;
+          padding: $spacing-small;
+          .resource-label {
+            font-family: $font-headers;
+            text-transform: uppercase;
+            color: $c-accent;
+            font-size: 0.9em;
+            margin-bottom: $spacing-small;
+          }
+          .resource-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            input {
+              width: 40px;
+              height: 24px;
+              padding: 2px;
+            }
+            span {
+              flex: 1;
+              text-align: center;
+              color: $c-text-secondary;
+            }
+          }
+        }
+      }
+    }
+  }
+  // ===================================
+  //      ABAS DE NAVEGAÇÃO
+  // ===================================
+  .sheet-tabs {
+    flex: 0 0 auto;
+    border-bottom: 2px solid $c-border;
+    .item {
+      font-family: $font-headers;
+      text-transform: uppercase;
+      color: $c-text-secondary;
+      &:hover {
+        color: $c-accent-hover;
+      }
+      &.active {
+        color: $c-accent;
+        border-bottom: 3px solid $c-accent;
+        text-shadow: none;
+      }
+    }
+  }
+  // ===================================
+  //      CORPO DA FICHA
+  // ===================================
+  .sheet-body {
+    flex: 1;
+    padding: $spacing-medium;
+    overflow-y: auto;
+    .character-details,
+    .attributes-header,
+    .attribute {
+      padding: $spacing-small;
+      margin: 0 $spacing-small $spacing-small;
+    }
+    .attributes-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      font-family: $font-headers;
+      text-transform: uppercase;
+      color: $c-text-secondary;
+      border-bottom: 2px solid $c-border;
+      text-align: center;
+      .attribute-label {
+        text-align: left;
+      }
+    }
+    .attribute {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      align-items: center;
+      padding: $spacing-small;
+      border-bottom: 1px solid $c-border;
+      .attribute-label {
+        font-weight: bold;
+        color: $c-text-primary;
+      }
+      .attribute-values {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $spacing-small;
+        padding: 0 $spacing-medium;
+        .attribute-mod {
+          text-align: center;
+          color: $c-text-primary;
+        }
+      }
+      .attribute-test,
+      .attribute-roll {
+        text-align: center;
+      }
+      .attribute-test {
+        font-weight: bold;
+        color: $c-accent;
+      }
+      .attribute-roll a {
+        color: $c-accent;
+        &:hover {
+          color: $c-accent-hover;
+        }
+      }
+    }
 
-// Import utilities.
-@import "utils/typography";
-@import "utils/colors";
-@import "utils/mixins";
-@import "utils/variables";
+    // NOVA REGRA PARA A CALCULADORA
+    .skill-points-display a {
+      color: $c-accent;
+      &:hover {
+        color: $c-accent-hover;
+      }
+    }
 
-/* Global styles */
-@import "global/window";
-@import "global/grid";
-@import "global/flex";
-
-/* Styles limited to daemonrpg sheets */
-.daemonrpg {
-  @import "components/forms";
-  @import "components/resource";
-  @import "components/items";
-  @import "components/effects";
+    .items-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      .items-header {
+        font-family: $font-headers;
+        text-transform: uppercase;
+        color: $c-text-secondary;
+        padding: $spacing-small;
+        border-bottom: 2px solid $c-border;
+        margin-bottom: $spacing-small;
+        .item-name,
+        .item-data {
+          color: $c-text-secondary;
+        }
+      }
+      .item {
+        padding: $spacing-small $spacing-medium;
+        border-bottom: 1px solid $c-border;
+        align-items: center;
+        &:last-child {
+          border-bottom: none;
+        }
+        .item-name {
+          flex: 3;
+          display: flex;
+          align-items: center;
+          gap: $spacing-medium;
+          color: $c-text-primary;
+          &.rollable:hover {
+            color: $c-accent-hover;
+            cursor: pointer;
+          }
+        }
+        .item-data {
+          flex: 1;
+          text-align: center;
+        }
+        .item-controls {
+          flex: 1;
+          text-align: right;
+          a,
+          input[type="checkbox"] {
+            color: $c-text-secondary;
+            margin: 0 $spacing-small;
+            &:hover {
+              color: $c-accent-hover;
+            }
+          }
+        }
+      }
+    }
+    // Estilo para o corpo da aba de equipamentos
+    .equipamentos-body {
+      padding-top: $spacing-medium;
+    }
+  }
 }
