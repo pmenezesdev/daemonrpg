@@ -1,17 +1,17 @@
 {
   "id": "daemonrpg",
   "title": "Sistema Daemon",
-  "description": "Um sistema para o Foundry VTT baseado no RPG Daemon, de Marcelo Del Debbio, focado em cenários de horror e fantasia.",
+  "description": "Um sistema para o Foundry VTT baseado no RPG Daemon, de Marcelo Del Debbio.",
   "authors": [
     {
       "name": "Mestre Arboreal",
       "discord": "arboreall"
     }
   ],
-  "url": "",
+  "url": "https://github.com/pmenezesdev/daemonrpg",
   "license": "LICENSE.txt",
   "readme": "README.md",
-  "bugs": "",
+  "bugs": "https://github.com/pmenezesdev/daemonrpg/issues",
   "changelog": "CHANGELOG.md",
   "version": "0.1.0",
   "compatibility": {
@@ -28,13 +28,12 @@
     }
   ],
   "socket": false,
-  "manifest": "",
-  "download": "",
+  "manifest": "https://raw.githubusercontent.com/pmenezesdev/daemonrpg/main/system.json",
+  "download": "https://github.com/pmenezesdev/daemonrpg/archive/refs/tags/v0.1.0.zip",
   "gridDistance": 1,
   "gridUnits": "m",
   "primaryTokenAttribute": "pv",
   "secondaryTokenAttribute": "ph",
-
   "packs": [
     {
       "name": "aprimoramentos",
