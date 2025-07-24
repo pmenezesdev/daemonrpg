@@ -1,4 +1,5 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+  {{! HEADER }}
   <header class="sheet-header">
     <img
       class="profile-img"
@@ -14,82 +15,71 @@
           placeholder="Nome do Personagem"
         /></h1>
       <div class="resources grid grid-4col">
-        <div class="resource flex-group-center">
-          <label class="resource-label">PV</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input
+        <div class="resource flex-group-center"><label
+            class="resource-label"
+          >PV</label><div
+            class="resource-content flexrow flex-center flex-between"
+          ><input
               type="text"
               name="system.resources.pv.value"
               value="{{system.resources.pv.value}}"
               data-dtype="Number"
-            />
-            <span>/</span>
-            <input
+            /><span>/</span><input
               type="text"
               name="system.resources.pv.max"
               value="{{system.resources.pv.max}}"
               data-dtype="Number"
-            />
-          </div>
-        </div>
-        <div class="resource flex-group-center">
-          <label class="resource-label">PH</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input
+            /></div></div>
+        <div class="resource flex-group-center"><label
+            class="resource-label"
+          >PH</label><div
+            class="resource-content flexrow flex-center flex-between"
+          ><input
               type="text"
               name="system.resources.ph.value"
               value="{{system.resources.ph.value}}"
               data-dtype="Number"
-            />
-            <span>/</span>
-            <input
+            /><span>/</span><input
               type="text"
               name="system.resources.ph.max"
               value="{{system.resources.ph.max}}"
               data-dtype="Number"
-            />
-          </div>
-        </div>
-        <div class="resource flex-group-center">
-          <label class="resource-label">Magia</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input
+            /></div></div>
+        <div class="resource flex-group-center"><label
+            class="resource-label"
+          >Magia</label><div
+            class="resource-content flexrow flex-center flex-between"
+          ><input
               type="text"
               name="system.resources.magia.value"
               value="{{system.resources.magia.value}}"
               data-dtype="Number"
-            />
-            <span>/</span>
-            <input
+            /><span>/</span><input
               type="text"
               name="system.resources.magia.max"
               value="{{system.resources.magia.max}}"
               data-dtype="Number"
-            />
-          </div>
-        </div>
-        <div class="resource flex-group-center">
-          <label class="resource-label">Focus</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input
+            /></div></div>
+        <div class="resource flex-group-center"><label
+            class="resource-label"
+          >Focus</label><div
+            class="resource-content flexrow flex-center flex-between"
+          ><input
               type="text"
               name="system.resources.focus.value"
               value="{{system.resources.focus.value}}"
               data-dtype="Number"
-            />
-            <span>/</span>
-            <input
+            /><span>/</span><input
               type="text"
               name="system.resources.focus.max"
               value="{{system.resources.focus.max}}"
               data-dtype="Number"
-            />
-          </div>
-        </div>
+            /></div></div>
       </div>
     </div>
   </header>
 
+  {{! TABS }}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="principal">Principal</a>
     <a class="item" data-tab="pericias">Perícias</a>
@@ -99,7 +89,9 @@
     <a class="item" data-tab="descricao">Descrição</a>
   </nav>
 
+  {{! BODY }}
   <section class="sheet-body">
+    {{! Aba Principal }}
     <div class="tab" data-group="primary" data-tab="principal">
       <div class="character-details flex-group-center">
         <div class="form-group">
@@ -124,135 +116,166 @@
         </div>
       </div>
       <hr />
-      <div class="attributes grid grid-2col">
-        <div class="attribute flexrow flex-group-center">
-          <label class="attribute-label">Força</label>
-          <input
-            type="text"
-            name="system.attributes.fr.value"
-            value="{{system.attributes.fr.value}}"
-            data-dtype="Number"
-          />
-          <span class="attribute-test">{{system.attributes.fr.test}}%</span>
-          <a
+      <div class="attributes-header flexrow">
+        <div class="attribute-label">Atributo</div>
+        <div class="attribute-values-header"><span>Original</span><span
+          >Mod.</span></div>
+        <div class="attribute-test">Teste</div>
+        <div class="attribute-roll">Rolar</div>
+      </div>
+      <div class="attributes grid grid-1col">
+        <div class="attribute flexrow flex-group-center"><label
+            class="attribute-label"
+          >Força</label><div class="attribute-values"><input
+              type="text"
+              name="system.attributes.fr.value"
+              value="{{system.attributes.fr.value}}"
+              data-dtype="Number"
+              title="Valor Original"
+            /><span
+              class="attribute-mod"
+              title="Valor Modificado"
+            >{{system.attributes.fr.mod}}</span></div><span
+            class="attribute-test"
+          >{{system.attributes.fr.test}}%</span><a
             class="roll-attribute"
             title="Rolar Força"
             data-label="Força"
             data-test-value="{{system.attributes.fr.test}}"
-          ><i class="fas fa-dice-d20"></i></a>
-        </div>
-        <div class="attribute flexrow flex-group-center">
-          <label class="attribute-label">Constituição</label>
-          <input
-            type="text"
-            name="system.attributes.con.value"
-            value="{{system.attributes.con.value}}"
-            data-dtype="Number"
-          />
-          <span class="attribute-test">{{system.attributes.con.test}}%</span>
-          <a
+          ><i class="fas fa-dice-d20"></i></a></div>
+        <div class="attribute flexrow flex-group-center"><label
+            class="attribute-label"
+          >Constituição</label><div class="attribute-values"><input
+              type="text"
+              name="system.attributes.con.value"
+              value="{{system.attributes.con.value}}"
+              data-dtype="Number"
+              title="Valor Original"
+            /><span
+              class="attribute-mod"
+              title="Valor Modificado"
+            >{{system.attributes.con.mod}}</span></div><span
+            class="attribute-test"
+          >{{system.attributes.con.test}}%</span><a
             class="roll-attribute"
             title="Rolar Constituição"
             data-label="Constituição"
             data-test-value="{{system.attributes.con.test}}"
-          ><i class="fas fa-dice-d20"></i></a>
-        </div>
-        <div class="attribute flexrow flex-group-center">
-          <label class="attribute-label">Destreza</label>
-          <input
-            type="text"
-            name="system.attributes.dex.value"
-            value="{{system.attributes.dex.value}}"
-            data-dtype="Number"
-          />
-          <span class="attribute-test">{{system.attributes.dex.test}}%</span>
-          <a
+          ><i class="fas fa-dice-d20"></i></a></div>
+        <div class="attribute flexrow flex-group-center"><label
+            class="attribute-label"
+          >Destreza</label><div class="attribute-values"><input
+              type="text"
+              name="system.attributes.dex.value"
+              value="{{system.attributes.dex.value}}"
+              data-dtype="Number"
+              title="Valor Original"
+            /><span
+              class="attribute-mod"
+              title="Valor Modificado"
+            >{{system.attributes.dex.mod}}</span></div><span
+            class="attribute-test"
+          >{{system.attributes.dex.test}}%</span><a
             class="roll-attribute"
             title="Rolar Destreza"
             data-label="Destreza"
             data-test-value="{{system.attributes.dex.test}}"
-          ><i class="fas fa-dice-d20"></i></a>
-        </div>
-        <div class="attribute flexrow flex-group-center">
-          <label class="attribute-label">Agilidade</label>
-          <input
-            type="text"
-            name="system.attributes.agi.value"
-            value="{{system.attributes.agi.value}}"
-            data-dtype="Number"
-          />
-          <span class="attribute-test">{{system.attributes.agi.test}}%</span>
-          <a
+          ><i class="fas fa-dice-d20"></i></a></div>
+        <div class="attribute flexrow flex-group-center"><label
+            class="attribute-label"
+          >Agilidade</label><div class="attribute-values"><input
+              type="text"
+              name="system.attributes.agi.value"
+              value="{{system.attributes.agi.value}}"
+              data-dtype="Number"
+              title="Valor Original"
+            /><span
+              class="attribute-mod"
+              title="Valor Modificado"
+            >{{system.attributes.agi.mod}}</span></div><span
+            class="attribute-test"
+          >{{system.attributes.agi.test}}%</span><a
             class="roll-attribute"
             title="Rolar Agilidade"
             data-label="Agilidade"
             data-test-value="{{system.attributes.agi.test}}"
-          ><i class="fas fa-dice-d20"></i></a>
-        </div>
-        <div class="attribute flexrow flex-group-center">
-          <label class="attribute-label">Inteligência</label>
-          <input
-            type="text"
-            name="system.attributes.int.value"
-            value="{{system.attributes.int.value}}"
-            data-dtype="Number"
-          />
-          <span class="attribute-test">{{system.attributes.int.test}}%</span>
-          <a
+          ><i class="fas fa-dice-d20"></i></a></div>
+        <div class="attribute flexrow flex-group-center"><label
+            class="attribute-label"
+          >Inteligência</label><div class="attribute-values"><input
+              type="text"
+              name="system.attributes.int.value"
+              value="{{system.attributes.int.value}}"
+              data-dtype="Number"
+              title="Valor Original"
+            /><span
+              class="attribute-mod"
+              title="Valor Modificado"
+            >{{system.attributes.int.mod}}</span></div><span
+            class="attribute-test"
+          >{{system.attributes.int.test}}%</span><a
             class="roll-attribute"
             title="Rolar Inteligência"
             data-label="Inteligência"
             data-test-value="{{system.attributes.int.test}}"
-          ><i class="fas fa-dice-d20"></i></a>
-        </div>
-        <div class="attribute flexrow flex-group-center">
-          <label class="attribute-label">F. de Vontade</label>
-          <input
-            type="text"
-            name="system.attributes.will.value"
-            value="{{system.attributes.will.value}}"
-            data-dtype="Number"
-          />
-          <span class="attribute-test">{{system.attributes.will.test}}%</span>
-          <a
+          ><i class="fas fa-dice-d20"></i></a></div>
+        <div class="attribute flexrow flex-group-center"><label
+            class="attribute-label"
+          >F. de Vontade</label><div class="attribute-values"><input
+              type="text"
+              name="system.attributes.will.value"
+              value="{{system.attributes.will.value}}"
+              data-dtype="Number"
+              title="Valor Original"
+            /><span
+              class="attribute-mod"
+              title="Valor Modificado"
+            >{{system.attributes.will.mod}}</span></div><span
+            class="attribute-test"
+          >{{system.attributes.will.test}}%</span><a
             class="roll-attribute"
             title="Rolar Força de Vontade"
             data-label="Força de Vontade"
             data-test-value="{{system.attributes.will.test}}"
-          ><i class="fas fa-dice-d20"></i></a>
-        </div>
-        <div class="attribute flexrow flex-group-center">
-          <label class="attribute-label">Percepção</label>
-          <input
-            type="text"
-            name="system.attributes.per.value"
-            value="{{system.attributes.per.value}}"
-            data-dtype="Number"
-          />
-          <span class="attribute-test">{{system.attributes.per.test}}%</span>
-          <a
+          ><i class="fas fa-dice-d20"></i></a></div>
+        <div class="attribute flexrow flex-group-center"><label
+            class="attribute-label"
+          >Percepção</label><div class="attribute-values"><input
+              type="text"
+              name="system.attributes.per.value"
+              value="{{system.attributes.per.value}}"
+              data-dtype="Number"
+              title="Valor Original"
+            /><span
+              class="attribute-mod"
+              title="Valor Modificado"
+            >{{system.attributes.per.mod}}</span></div><span
+            class="attribute-test"
+          >{{system.attributes.per.test}}%</span><a
             class="roll-attribute"
             title="Rolar Percepção"
             data-label="Percepção"
             data-test-value="{{system.attributes.per.test}}"
-          ><i class="fas fa-dice-d20"></i></a>
-        </div>
-        <div class="attribute flexrow flex-group-center">
-          <label class="attribute-label">Carisma</label>
-          <input
-            type="text"
-            name="system.attributes.car.value"
-            value="{{system.attributes.car.value}}"
-            data-dtype="Number"
-          />
-          <span class="attribute-test">{{system.attributes.car.test}}%</span>
-          <a
+          ><i class="fas fa-dice-d20"></i></a></div>
+        <div class="attribute flexrow flex-group-center"><label
+            class="attribute-label"
+          >Carisma</label><div class="attribute-values"><input
+              type="text"
+              name="system.attributes.car.value"
+              value="{{system.attributes.car.value}}"
+              data-dtype="Number"
+              title="Valor Original"
+            /><span
+              class="attribute-mod"
+              title="Valor Modificado"
+            >{{system.attributes.car.mod}}</span></div><span
+            class="attribute-test"
+          >{{system.attributes.car.test}}%</span><a
             class="roll-attribute"
             title="Rolar Carisma"
             data-label="Carisma"
             data-test-value="{{system.attributes.car.test}}"
-          ><i class="fas fa-dice-d20"></i></a>
-        </div>
+          ><i class="fas fa-dice-d20"></i></a></div>
       </div>
     </div>
 
@@ -271,19 +294,19 @@
         </li>
         {{#each system.pericias as |item id|}}
           <li class="item flexrow" data-item-id="{{item._id}}">
-            <div class="item-name flex-2 rollable" title="Rolar {{item.name}}">
-              <img src="{{item.img}}" width="24" height="24" />
-              <h4>{{item.name}}</h4>
-            </div>
+            <div
+              class="item-name flex-2 rollable"
+              title="Rolar {{item.name}}"
+            ><img src="{{item.img}}" width="24" height="24" /><h4
+              >{{item.name}}</h4></div>
             <div class="item-data">{{item.system.total}}%</div>
-            <div class="item-controls">
-              <a class="item-control item-edit" title="Editar Perícia"><i
-                  class="fas fa-edit"
-                ></i></a>
-              <a class="item-control item-delete" title="Deletar Perícia"><i
-                  class="fas fa-trash"
-                ></i></a>
-            </div>
+            <div class="item-controls"><a
+                class="item-control item-edit"
+                title="Editar Perícia"
+              ><i class="fas fa-edit"></i></a><a
+                class="item-control item-delete"
+                title="Deletar Perícia"
+              ><i class="fas fa-trash"></i></a></div>
           </li>
         {{/each}}
       </ol>
@@ -292,15 +315,15 @@
     <div class="tab" data-group="primary" data-tab="combate">
       <div class="combat-summary flex-group-center">
         <h4>Sumário de Combate</h4>
-        <div class="stat">
-          <label>Índice de Proteção (IP) Total:</label>
-          <span class="stat-value">{{system.combat.ip}}</span>
-        </div>
+        <div class="stat"><label>Índice de Proteção (IP) Total:</label><span
+            class="stat-value"
+          >{{system.combat.ip}}</span></div>
       </div>
       <hr />
       <ol class="items-list">
         <li class="item flexrow items-header">
           <div class="item-name flex-2">Perícia de Combate</div>
+          <div class="item-name flex-2">Arma Vinculada</div>
           <div class="item-data">Ataque</div>
           <div class="item-data">Defesa</div>
           <div class="item-controls">
@@ -314,6 +337,7 @@
         {{#each system.periciasCombate as |item id|}}
           <li class="item flexrow" data-item-id="{{item._id}}">
             <div class="item-name flex-2">{{item.name}}</div>
+            <div class="item-name flex-2">{{item.system.armaVinculada}}</div>
             <div class="item-data">{{item.system.total_atk}}%</div>
             <div class="item-data">{{item.system.total_def}}%</div>
             <div class="item-controls">
@@ -325,46 +349,6 @@
                   class="fas fa-edit"
                 ></i></a>
               <a class="item-control item-delete" title="Deletar Perícia"><i
-                  class="fas fa-trash"
-                ></i></a>
-            </div>
-          </li>
-        {{/each}}
-      </ol>
-      <ol class="items-list">
-        <li class="item flexrow items-header">
-          <div class="item-name flex-2">Arma</div>
-          <div class="item-data">Ataque</div>
-          <div class="item-data">Defesa</div>
-          <div class="item-data">Dano</div>
-          <div class="item-data">Crítico</div>
-          <div class="item-controls">
-            <a
-              class="item-control item-create"
-              title="Adicionar Arma"
-              data-type="arma"
-            ><i class="fas fa-plus"></i> Adicionar</a>
-          </div>
-        </li>
-        {{#each system.armas as |item id|}}
-          <li class="item flexrow" data-item-id="{{item._id}}">
-            <div
-              class="item-name flex-2 rollable"
-              title="Rolar Dano de {{item.name}}"
-            >{{item.name}}</div>
-            <div class="item-data">{{item.system.attack}}</div>
-            <div class="item-data">{{item.system.defense}}</div>
-            <div class="item-data">{{item.system.damage}}</div>
-            <div class="item-data">{{item.system.critical}}%</div>
-            <div class="item-controls">
-              <a
-                class="item-control item-attack"
-                title="Atacar com {{item.name}}"
-              ><i class="fas fa-fist-raised"></i></a>
-              <a class="item-control item-edit" title="Editar Arma"><i
-                  class="fas fa-edit"
-                ></i></a>
-              <a class="item-control item-delete" title="Deletar Arma"><i
                   class="fas fa-trash"
                 ></i></a>
             </div>
@@ -386,8 +370,14 @@
         {{#each system.armaduras as |item id|}}
           <li class="item flexrow" data-item-id="{{item._id}}">
             <div class="item-name flex-2">{{item.name}}</div>
-            <div class="item-data">{{item.system.ip}}</div>
+            <div class="item-data">{{item.system.ip.cinetico}}</div>
             <div class="item-controls">
+              <input
+                type="checkbox"
+                name="items.{{item._id}}.system.equipped"
+                {{checked item.system.equipped}}
+                title="Equipar"
+              />
               <a class="item-control item-edit" title="Editar Armadura"><i
                   class="fas fa-edit"
                 ></i></a>
@@ -417,46 +407,105 @@
           <li class="item flexrow" data-item-id="{{item._id}}">
             <div class="item-name flex-2">{{item.name}}</div>
             <div class="item-data">{{item.system.cost}}</div>
-            <div class="item-controls">
-              <a class="item-control item-edit" title="Editar Aprimoramento"><i
-                  class="fas fa-edit"
-                ></i></a>
-              <a
+            <div class="item-controls"><a
+                class="item-control item-edit"
+                title="Editar Aprimoramento"
+              ><i class="fas fa-edit"></i></a><a
                 class="item-control item-delete"
                 title="Deletar Aprimoramento"
-              ><i class="fas fa-trash"></i></a>
-            </div>
+              ><i class="fas fa-trash"></i></a></div>
           </li>
         {{/each}}
       </ol>
     </div>
 
-    <div class="tab" data-group="primary" data-tab="equipamentos">
-      <ol class="items-list">
-        <li class="item flexrow items-header">
-          <div class="item-name flex-2">Item</div>
-          <div class="item-controls">
-            <a
-              class="item-control item-create"
-              title="Adicionar Item"
-              data-type="item"
-            ><i class="fas fa-plus"></i> Adicionar</a>
-          </div>
-        </li>
-        {{#each system.itens as |item id|}}
-          <li class="item flexrow" data-item-id="{{item._id}}">
-            <div class="item-name flex-2">{{item.name}}</div>
-            <div class="item-controls">
-              <a class="item-control item-edit" title="Editar Item"><i
-                  class="fas fa-edit"
-                ></i></a>
-              <a class="item-control item-delete" title="Deletar Item"><i
-                  class="fas fa-trash"
-                ></i></a>
-            </div>
-          </li>
-        {{/each}}
-      </ol>
+    <div class="tab equipamentos" data-group="primary" data-tab="equipamentos">
+      <nav class="sheet-tabs tabs" data-group="secondary">
+        <a class="item" data-tab="armas">Armas</a>
+        <a class="item" data-tab="armaduras">Armaduras & Escudos</a>
+        <a class="item" data-tab="outros">Outros</a>
+      </nav>
+      <section class="equipamentos-body">
+        <div class="tab" data-group="secondary" data-tab="armas">
+          <ol class="items-list">
+            <li class="item flexrow items-header"><div
+                class="item-name flex-2"
+              >Arma</div><div class="item-data">Dano</div><div
+                class="item-controls"
+              ><a
+                  class="item-control item-create"
+                  title="Adicionar Arma"
+                  data-type="arma"
+                ><i class="fas fa-plus"></i> Adicionar</a></div></li>
+            {{#each system.armas as |item id|}}
+              <li class="item flexrow" data-item-id="{{item._id}}"><div
+                  class="item-name flex-2"
+                ><img src="{{item.img}}" width="24" height="24" /><h4
+                  >{{item.name}}</h4></div><div
+                  class="item-data"
+                >{{item.system.damage}}</div><div class="item-controls"><a
+                    class="item-control item-edit"
+                    title="Editar Arma"
+                  ><i class="fas fa-edit"></i></a><a
+                    class="item-control item-delete"
+                    title="Deletar Arma"
+                  ><i class="fas fa-trash"></i></a></div></li>
+            {{/each}}
+          </ol>
+        </div>
+        <div class="tab" data-group="secondary" data-tab="armaduras">
+          <ol class="items-list">
+            <li class="item flexrow items-header"><div
+                class="item-name flex-2"
+              >Armadura</div><div class="item-data">IP</div><div
+                class="item-controls"
+              ><a
+                  class="item-control item-create"
+                  title="Adicionar Armadura"
+                  data-type="armadura"
+                ><i class="fas fa-plus"></i> Adicionar</a></div></li>
+            {{#each system.armaduras as |item id|}}
+              <li class="item flexrow" data-item-id="{{item._id}}"><div
+                  class="item-name flex-2"
+                >{{item.name}}</div><div
+                  class="item-data"
+                >{{item.system.ip.cinetico}}</div><div class="item-controls"><a
+                    class="item-control item-edit"
+                    title="Editar Armadura"
+                  ><i class="fas fa-edit"></i></a><a
+                    class="item-control item-delete"
+                    title="Deletar Armadura"
+                  ><i class="fas fa-trash"></i></a></div></li>
+            {{/each}}
+          </ol>
+        </div>
+        <div class="tab" data-group="secondary" data-tab="outros">
+          <ol class="items-list">
+            <li class="item flexrow items-header"><div
+                class="item-name flex-2"
+              >Item</div><div class="item-data">Qtd.</div><div
+                class="item-controls"
+              ><a
+                  class="item-control item-create"
+                  title="Adicionar Item"
+                  data-type="item"
+                ><i class="fas fa-plus"></i> Adicionar</a></div></li>
+            {{#each system.itens as |item id|}}
+              <li class="item flexrow" data-item-id="{{item._id}}"><div
+                  class="item-name flex-2"
+                >{{item.name}}</div><div
+                  class="item-data"
+                >{{item.system.quantity}}</div><div class="item-controls"><a
+                    class="item-control item-edit"
+                    title="Editar Item"
+                  ><i class="fas fa-edit"></i></a><a
+                    class="item-control item-delete"
+                    title="Deletar Item"
+                  ><i class="fas fa-trash"></i></a></div></li>
+            {{/each}}
+          </ol>
+        </div>
+      </section>
     </div>
 
     <div class="tab" data-group="primary" data-tab="descricao">

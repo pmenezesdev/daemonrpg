@@ -15,35 +15,58 @@ export class DaemonActor extends Actor {
     const systemData = this.system;
     if (this.type !== "personagem") return;
 
-    // --- Cálculos dos Atributos ---
+    // --- APLICAÇÃO DE PENALIDADES DE ARMADURA ---
+    for (let attr of Object.values(systemData.attributes)) {
+      attr.mod = attr.value;
+    }
+    const equippedArmors = this.items.filter(
+      (i) => i.type === "armadura" && i.system.equipped
+    );
+    let penaltyDex = 0;
+    let penaltyAgi = 0;
+    for (const armor of equippedArmors) {
+      penaltyDex += armor.system.penalties?.dex || 0;
+      penaltyAgi += armor.system.penalties?.agi || 0;
+    }
+    systemData.attributes.dex.mod -= penaltyDex;
+    systemData.attributes.agi.mod -= penaltyAgi;
+
+    // --- CÁLCULOS DOS ATRIBUTOS ---
     for (let [key, attribute] of Object.entries(systemData.attributes)) {
-      attribute.test = attribute.value * 4;
+      attribute.test = attribute.mod * 4;
     }
     systemData.attributes.fr.dmg = Math.floor(
       (systemData.attributes.fr.value - 13.5) / 2
     );
 
-    // --- Cálculos dos Recursos ---
-    const attributes = systemData.attributes;
-    const details = systemData.details;
+    // --- CÁLCULOS DOS RECURSOS ---
     systemData.resources.pv.max =
-      Math.ceil((attributes.fr.value + attributes.con.value) / 2) +
-      details.level.value;
+      Math.ceil(
+        (systemData.attributes.fr.value + systemData.attributes.con.value) / 2
+      ) + systemData.details.level.value;
 
-    // --- Cálculos de Combate ---
+    // --- CÁLCULOS DE COMBATE ---
     systemData.combat = systemData.combat || {};
-    const armaduras = this.items.filter((item) => item.type === "armadura");
     let totalIp = 0;
-    for (const armadura of armaduras) {
-      totalIp += armadura.system.ip || 0;
+    for (const armor of equippedArmors) {
+      totalIp += armor.system.ip?.cinetico || 0;
     }
     systemData.combat.ip = totalIp;
 
-    // --- Cálculo de Pontos de Perícia Gastos ---
-    const pericias = this.items.filter((item) => item.type === "pericia");
+    // --- CÁLCULO DE PONTOS DE PERÍCIA GASTOS (CORRIGIDO) ---
     let pontosGastos = 0;
+    // Soma os pontos de perícias normais
+    const pericias = this.items.filter((item) => item.type === "pericia");
     for (const pericia of pericias) {
       pontosGastos += pericia.system.gasto || 0;
+    }
+    // Soma os pontos de perícias de combate (ataque e defesa)
+    const periciasCombate = this.items.filter(
+      (item) => item.type === "pericia-combate"
+    );
+    for (const periciaC of periciasCombate) {
+      pontosGastos += periciaC.system.gasto_atk || 0;
+      pontosGastos += periciaC.system.gasto_def || 0;
     }
     systemData.details.skillpoints.spent = pontosGastos;
   }

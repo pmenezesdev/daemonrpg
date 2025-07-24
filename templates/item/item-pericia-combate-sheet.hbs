@@ -28,6 +28,15 @@
       </select>
     </div>
     <div class="form-group">
+      <label>Arma Vinculada (Nome Exato do Item)</label>
+      <input
+        type="text"
+        name="system.armaVinculada"
+        value="{{system.armaVinculada}}"
+      />
+    </div>
+    <hr />
+    <div class="form-group">
       <label>Pontos Gastos (Ataque)</label>
       <input
         type="text"
@@ -44,10 +53,6 @@
         value="{{system.gasto_def}}"
         data-dtype="Number"
       />
-    </div>
-    <div class="form-group">
-      <label>Dano (ex: 1d3 para Briga)</label>
-      <input type="text" name="system.damage" value="{{system.damage}}" />
     </div>
     <hr />
     <div class="form-group totals">

@@ -8,9 +8,14 @@ export class DaemonActorSheet extends ActorSheet {
       height: 680,
       tabs: [
         {
-          navSelector: ".sheet-tabs",
+          navSelector: '.sheet-tabs[data-group="primary"]',
           contentSelector: ".sheet-body",
           initial: "principal",
+        },
+        {
+          navSelector: '.sheet-tabs[data-group="secondary"]',
+          contentSelector: ".equipamentos-body",
+          initial: "armas",
         },
       ],
     });
@@ -31,7 +36,6 @@ export class DaemonActorSheet extends ActorSheet {
     const armaduras = [];
     const itens = [];
     const periciasCombate = [];
-
     for (const i of context.items) {
       switch (i.type) {
         case "pericia":
@@ -66,8 +70,6 @@ export class DaemonActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
     if (!this.isEditable) return;
-
-    // Listeners para todos os botões e interações
     html.find(".roll-attribute").on("click", this._onAttributeRoll.bind(this));
     html.find(".item .rollable").on("click", this._onItemRoll.bind(this));
     html.find(".item-edit").on("click", this._onItemEdit.bind(this));
@@ -84,12 +86,10 @@ export class DaemonActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const itemId = element.closest(".item").dataset.itemId;
     const item = this.actor.items.get(itemId);
-
     const ataquePersonagem =
       item.type === "pericia-combate"
         ? item.system.total_atk || 0
         : item.system.attack || 0;
-    const danoFormula = item.system.damage || "1d3";
 
     const content = `<form><div class="form-group"><label>Defesa do Alvo</label><input type="number" name="defesaAlvo" value="30"/></div></form>`;
     new Dialog({
@@ -108,7 +108,6 @@ export class DaemonActorSheet extends ActorSheet {
             const critico = Math.floor(ataquePersonagem / 4);
             const isSuccess = roll.total <= chance && roll.total <= 95;
             const isCritical = roll.total <= critico;
-
             let flavor = `Teste de Ataque: <strong>${item.name}</strong> vs Defesa ${defesaAlvo}`;
             flavor += isCritical
               ? ` (Acerto Crítico!)`
@@ -121,22 +120,48 @@ export class DaemonActorSheet extends ActorSheet {
             });
 
             if (isSuccess) {
-              const formulaFinalDano = isCritical
-                ? `2 * (${danoFormula})`
-                : danoFormula;
-              const danoRoll = new Roll(
-                formulaFinalDano,
-                this.actor.getRollData()
-              );
-              await danoRoll.evaluate({ async: true });
-              const bonusDano = this.actor.system.attributes.fr.dmg || 0;
-              const totalDano = danoRoll.total + bonusDano;
-              const damageContent = `<div class="dice-roll"><div class="dice-result"><h4 class="dice-total">${totalDano}</h4><div class="dice-formula">${danoRoll.formula} + ${bonusDano} (FR)</div></div></div><div class="damage-buttons"><button class="apply-damage" data-damage="${totalDano}">Aplicar Dano</button></div>`;
-              await ChatMessage.create({
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                flavor: `Dano com <strong>${item.name}</strong>`,
-                content: damageContent,
-              });
+              let armaUsada = null;
+              if (
+                item.type === "pericia-combate" &&
+                item.system.armaVinculada
+              ) {
+                armaUsada = this.actor.items.find(
+                  (i) =>
+                    i.type === "arma" && i.name === item.system.armaVinculada
+                );
+                if (!armaUsada)
+                  ui.notifications.warn(
+                    `Arma "${item.system.armaVinculada}" não encontrada!`
+                  );
+              } else if (item.type === "arma") {
+                armaUsada = item;
+              }
+
+              if (armaUsada) {
+                const danoFormula = isCritical
+                  ? `2 * (${armaUsada.system.damage})`
+                  : armaUsada.system.damage;
+                const danoRoll = new Roll(
+                  danoFormula,
+                  this.actor.getRollData()
+                );
+                await danoRoll.evaluate({ async: true });
+
+                let bonusDano = 0;
+                let formulaDisplay = danoRoll.formula;
+                if (armaUsada.system.weaponType === "corporal") {
+                  bonusDano = this.actor.system.attributes.fr.dmg || 0;
+                  formulaDisplay += ` + ${bonusDano} (FR)`;
+                }
+
+                const totalDano = danoRoll.total + bonusDano;
+                const damageContent = `<div class="dice-roll"><div class="dice-result"><h4 class="dice-total">${totalDano}</h4><div class="dice-formula">${formulaDisplay}</div></div></div><div class="damage-buttons"><button class="apply-damage" data-damage="${totalDano}">Aplicar Dano</button></div>`;
+                await ChatMessage.create({
+                  speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                  flavor: `Dano com <strong>${armaUsada.name}</strong>`,
+                  content: damageContent,
+                });
+              }
             }
           },
         },

@@ -79,13 +79,21 @@ export class DaemonItem extends Item {
         flavor = `Rolando Dano: <strong>${this.name}</strong>`;
         const danoRoll = new Roll(this.system.damage, this.actor.getRollData());
         await danoRoll.evaluate({ async: true });
-        const bonusDano = this.actor.system.attributes.fr.dmg || 0;
+
+        // LÓGICA CONDICIONAL DO BÔNUS DE FORÇA
+        let bonusDano = 0;
+        let formulaDano = danoRoll.formula;
+        if (this.system.weaponType === "corporal") {
+          bonusDano = this.actor.system.attributes.fr.dmg || 0;
+          formulaDano += ` + ${bonusDano} (FR)`;
+        }
+
         const totalDano = danoRoll.total + bonusDano;
         danoRoll.toMessage({
           speaker: speaker,
           rollMode: rollMode,
           flavor: flavor,
-          content: `<div class="dice-roll"><div class="dice-result"><h4 class="dice-total">${totalDano}</h4><div class="dice-formula">${danoRoll.formula} + ${bonusDano} (FR)</div></div></div>`,
+          content: `<div class="dice-roll"><div class="dice-result"><h4 class="dice-total">${totalDano}</h4><div class="dice-formula">${formulaDano}</div></div></div>`,
         });
         break;
       default:

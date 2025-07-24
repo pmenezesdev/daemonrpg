@@ -3,14 +3,14 @@
     "types": ["personagem"],
     "personagem": {
       "attributes": {
-        "fr": { "value": 10 },
-        "con": { "value": 10 },
-        "dex": { "value": 10 },
-        "agi": { "value": 10 },
-        "int": { "value": 10 },
-        "will": { "value": 10 },
-        "per": { "value": 10 },
-        "car": { "value": 10 }
+        "fr": { "value": 10, "mod": 10 },
+        "con": { "value": 10, "mod": 10 },
+        "dex": { "value": 10, "mod": 10 },
+        "agi": { "value": 10, "mod": 10 },
+        "int": { "value": 10, "mod": 10 },
+        "will": { "value": 10, "mod": 10 },
+        "per": { "value": 10, "mod": 10 },
+        "car": { "value": 10, "mod": 10 }
       },
       "resources": {
         "pv": { "value": 11, "max": 11 },
@@ -45,24 +45,27 @@
       "attribute": "int",
       "total": 10
     },
-    "aprimoramento": {
-      "templates": ["base"],
-      "cost": 1
-    },
+    "aprimoramento": { "templates": ["base"], "cost": 1 },
     "arma": {
       "templates": ["base"],
-      "attack": 0,
-      "defense": 0,
-      "damage": "1d6"
+      "damage": "1d6",
+      "weaponType": "corporal"
     },
     "armadura": {
       "templates": ["base"],
-      "ip": 1
+      "equipped": true,
+      "penalties": { "dex": 0, "agi": 0 },
+      "ip": {
+        "cinetico": 1,
+        "balistico": 0,
+        "fogo": 0,
+        "frio": 0,
+        "eletrico": 0,
+        "acido": 0,
+        "outros": ""
+      }
     },
-    "item": {
-      "templates": ["base"],
-      "quantity": 1
-    },
+    "item": { "templates": ["base"], "quantity": 1 },
     "pericia-combate": {
       "templates": ["base"],
       "gasto_atk": 10,
@@ -70,7 +73,7 @@
       "attribute": "dex",
       "total_atk": 10,
       "total_def": 10,
-      "damage": "1d3"
+      "armaVinculada": ""
     }
   }
 }

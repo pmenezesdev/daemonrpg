@@ -1,0 +1,116 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <img
+      class="profile-img"
+      src="{{item.img}}"
+      data-edit="img"
+      title="{{item.name}}"
+    />
+    <div class="header-fields">
+      <h1 class="charname"><input
+          name="name"
+          type="text"
+          value="{{item.name}}"
+          placeholder="Nome da Armadura"
+        /></h1>
+    </div>
+  </header>
+  <section class="sheet-body">
+
+    <div class="form-group">
+      <label for="system.equipped">Equipado</label>
+      <input
+        type="checkbox"
+        name="system.equipped"
+        {{checked system.equipped}}
+      />
+    </div>
+    <hr />
+
+    <h4>Penalidades</h4>
+    <div class="grid grid-2col">
+      <div class="form-group">
+        <label>Penalidade em Destreza (DEX)</label>
+        <input
+          type="text"
+          name="system.penalties.dex"
+          value="{{system.penalties.dex}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label>Penalidade em Agilidade (AGI)</label>
+        <input
+          type="text"
+          name="system.penalties.agi"
+          value="{{system.penalties.agi}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
+    <hr />
+
+    <h4>Índices de Proteção (IP)</h4>
+    <div class="grid grid-3col">
+      <div class="form-group">
+        <label>IP Cinético</label>
+        <input
+          type="text"
+          name="system.ip.cinetico"
+          value="{{system.ip.cinetico}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label>IP Balístico</label>
+        <input
+          type="text"
+          name="system.ip.balistico"
+          value="{{system.ip.balistico}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label>IP Fogo</label>
+        <input
+          type="text"
+          name="system.ip.fogo"
+          value="{{system.ip.fogo}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label>IP Frio</label>
+        <input
+          type="text"
+          name="system.ip.frio"
+          value="{{system.ip.frio}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label>IP Elétrico</label>
+        <input
+          type="text"
+          name="system.ip.eletrico"
+          value="{{system.ip.eletrico}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label>IP Ácido</label>
+        <input
+          type="text"
+          name="system.ip.acido"
+          value="{{system.ip.acido}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Outros Tipos de IP (Texto)</label>
+      <input type="text" name="system.ip.outros" value="{{system.ip.outros}}" />
+    </div>
+
+  </section>
+</form>
