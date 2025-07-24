@@ -1,0 +1,12 @@
+{"_id":"PERICIACOMUMCA","name":"Culinária","type":"pericia","system":{"gasto":0,"attribute":"per","total":0}}
+{"_id":"PERICIACOMUMCO","name":"Condução - Automóvel","type":"pericia","system":{"gasto":0,"attribute":"agi","total":0}}
+{"_id":"PERICIACOMUMCR","name":"Ciências - Criminalística","type":"pericia","system":{"gasto":0,"attribute":"int","total":0}}
+{"_id":"PERICIACOMUMDA","name":"Dança","type":"pericia","system":{"gasto":0,"attribute":"agi","total":0}}
+{"_id":"PERICIACOMUMDI","name":"Ciências - Direito","type":"pericia","system":{"gasto":0,"attribute":"int","total":0}}
+{"_id":"PERICIACOMUMES","name":"Esquiva","type":"pericia","system":{"gasto":0,"attribute":"agi","total":0}}
+{"_id":"PERICIACOMUMFU","name":"Furtividade","type":"pericia","system":{"gasto":0,"attribute":"agi","total":0}}
+{"_id":"PERICIACOMUMLA","name":"Manipulação - Lábia","type":"pericia","system":{"gasto":0,"attribute":"car","total":0}}
+{"_id":"PERICIACOMUMME","name":"Medicina - Primeiros Socorros","type":"pericia","system":{"gasto":0,"attribute":"int","total":0}}
+{"_id":"PERICIACOMUMOC","name":"Ciências Proibidas - Oculto","type":"pericia","system":{"gasto":0,"attribute":"none","total":0}}
+{"_id":"PERICIACOMUMPE","name":"Pesquisa ou Investigação","type":"pericia","system":{"gasto":0,"attribute":"per","total":0}}
+{"_id":"PERICIACOMUMTI","name":"Manipulação - Intimidação","type":"pericia","system":{"gasto":0,"attribute":"will","total":0}}

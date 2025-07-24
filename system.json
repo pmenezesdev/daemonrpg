@@ -8,18 +8,11 @@
       "discord": "arboreall"
     }
   ],
-  "url": "Replace this with a link to your public repository",
+  "url": "",
   "license": "LICENSE.txt",
   "readme": "README.md",
-  "bugs": "Replace this with a link to file issues or tickets",
+  "bugs": "",
   "changelog": "CHANGELOG.md",
-  "media": [
-    {
-      "type": "setup",
-      "url": "systems/daemonrpg/assets/daemon.png",
-      "thumbnail": "systems/daemonrpg/assets/daemon.png"
-    }
-  ],
   "version": "0.1.0",
   "compatibility": {
     "minimum": 11,
@@ -34,14 +27,46 @@
       "path": "lang/pt-br.json"
     }
   ],
-  "packs": [],
-  "packFolders": [],
   "socket": false,
-  "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
-  "download": "This must link to a .zip file of the current version",
-  "background": "systems/daemonrpg/assets/daemon.png",
+  "manifest": "",
+  "download": "",
   "gridDistance": 1,
   "gridUnits": "m",
   "primaryTokenAttribute": "pv",
-  "secondaryTokenAttribute": "ph"
+  "secondaryTokenAttribute": "ph",
+
+  "packs": [
+    {
+      "name": "aprimoramentos",
+      "label": "Aprimoramentos",
+      "system": "daemonrpg",
+      "path": "./packs/aprimoramentos.db",
+      "type": "Item",
+      "private": false
+    },
+    {
+      "name": "armas",
+      "label": "Armas",
+      "system": "daemonrpg",
+      "path": "./packs/armas.db",
+      "type": "Item",
+      "private": false
+    },
+    {
+      "name": "pericias-comuns",
+      "label": "Perícias Comuns",
+      "system": "daemonrpg",
+      "path": "./packs/pericias-comuns.db",
+      "type": "Item",
+      "private": false
+    },
+    {
+      "name": "pericias-combate",
+      "label": "Perícias de Combate",
+      "system": "daemonrpg",
+      "path": "./packs/pericias-combate.db",
+      "type": "Item",
+      "private": false
+    }
+  ]
 }

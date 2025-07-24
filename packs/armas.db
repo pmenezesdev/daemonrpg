@@ -1,0 +1,12 @@
+{"_id":"ARMABRANCAARCU","name":"Arco Curto","type":"arma","system":{"damage":"1d6","weaponType":"arremesso","initiative":-1,"range":"40/100"}}
+{"_id":"ARMABRANCAARLO","name":"Arco Longo","type":"arma","system":{"damage":"1d6+2","weaponType":"arremesso","initiative":-1,"range":"80/200"}}
+{"_id":"ARMABRANCAESCU","name":"Espada Curta","type":"arma","system":{"damage":"1d6","weaponType":"corporal","initiative":-4,"range":""}}
+{"_id":"ARMABRANCAESLO","name":"Espada Longa","type":"arma","system":{"damage":"1d10","weaponType":"corporal","initiative":-5,"range":""}}
+{"_id":"ARMABRANCAFACA","name":"Faca","type":"arma","system":{"damage":"1d3","weaponType":"corporal","initiative":-3,"range":"15/30"}}
+{"_id":"ARMABRANCAMABA","name":"Espada Bastarda (2 mãos)","type":"arma","system":{"damage":"2d6","weaponType":"corporal","initiative":-9,"range":""}}
+{"_id":"ARMABRANCAMACA","name":"Maça","type":"arma","system":{"damage":"1d10","weaponType":"corporal","initiative":-5,"range":""}}
+{"_id":"ARMABRANCAMAMI","name":"Machado Militar","type":"arma","system":{"damage":"1d6+2","weaponType":"corporal","initiative":-7,"range":""}}
+{"_id":"ARMAFOGOAK4700","name":"AK-47","type":"arma","system":{"damage":"1d10","weaponType":"fogo","initiative":0,"range":"75m"}}
+{"_id":"ARMAFOGOCOLTPY","name":"Colt Python 6.3","type":"arma","system":{"damage":"1d10","weaponType":"fogo","initiative":0,"range":"40m"}}
+{"_id":"ARMAFOGOGLOCK4","name":"Glock 24","type":"arma","system":{"damage":"2d6+2","weaponType":"fogo","initiative":0,"range":"50m"}}
+{"_id":"ARMAFOGOMINIUZ","name":"Mini UZI","type":"arma","system":{"damage":"1d6+2","weaponType":"fogo","initiative":0,"range":"100m"}}

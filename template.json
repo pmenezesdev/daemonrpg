@@ -24,7 +24,7 @@
         "biography": { "value": "" },
         "age": { "value": 30 },
         "skillpoints": { "total": 0, "spent": 0 },
-        "aprimoramentos": { "positivos": 0, "negativos": 0 }
+        "aprimoramentos": { "positivos": 0, "negativos": 0, "disponivel": 5 }
       }
     }
   },
@@ -50,7 +50,9 @@
     "arma": {
       "templates": ["base"],
       "damage": "1d6",
-      "weaponType": "corporal"
+      "weaponType": "corporal",
+      "initiative": 0,
+      "range": ""
     },
     "armadura": {
       "templates": ["base"],

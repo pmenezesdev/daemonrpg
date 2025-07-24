@@ -1,0 +1,6 @@
+{"_id":"PERICIACOMBATEBR","name":"Briga","type":"pericia-combate","system":{"gasto_atk":0,"gasto_def":0,"attribute":"dex","total_atk":0,"total_def":0,"armaVinculada":""}}
+{"_id":"PERICIACOMBATEES","name":"Espadas","type":"pericia-combate","system":{"gasto_atk":0,"gasto_def":0,"attribute":"dex","total_atk":0,"total_def":0,"armaVinculada":""}}
+{"_id":"PERICIACOMBATEFA","name":"Facas","type":"pericia-combate","system":{"gasto_atk":0,"gasto_def":0,"attribute":"dex","total_atk":0,"total_def":0,"armaVinculada":""}}
+{"_id":"PERICIACOMBATEMA","name":"Machados","type":"pericia-combate","system":{"gasto_atk":0,"gasto_def":0,"attribute":"dex","total_atk":0,"total_def":0,"armaVinculada":""}}
+{"_id":"PERICIACOMBATEPI","name":"Pistolas","type":"pericia-combate","system":{"gasto_atk":0,"gasto_def":0,"attribute":"dex","total_atk":0,"total_def":0,"armaVinculada":""}}
+{"_id":"PERICIACOMBATERI","name":"Rifles","type":"pericia-combate","system":{"gasto_atk":0,"gasto_def":0,"attribute":"dex","total_atk":0,"total_def":0,"armaVinculada":""}}
