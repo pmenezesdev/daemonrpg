@@ -1,0 +1,21 @@
+// ===================================
+//      VARIÁVEIS DE DESIGN
+// ===================================
+
+// Paleta de Cores (Tema Escuro Minimalista)
+$c-bg-primary: #2d2d2d; // Fundo principal da ficha (carvão escuro)
+$c-bg-secondary: #3a3a3a; // Fundo de elementos internos (cinza um pouco mais claro)
+$c-border: #4a4a4a; // Cor das bordas e linhas
+$c-text-primary: #e0e0e0; // Cor principal do texto (branco suave)
+$c-text-secondary: #a0a0a0; // Cor de texto secundário (cinza claro)
+$c-accent: #00bcd4; // Cor de destaque para botões, abas ativas e links (ciano)
+$c-accent-hover: #00e5ff; // Cor de destaque ao passar o mouse
+
+// Tipografia
+$font-primary: "Signika", sans-serif; // Fonte principal para o corpo do texto
+$font-headers: "Oswald", sans-serif; // Fonte para títulos e cabeçalhos
+
+// Espaçamento
+$spacing-small: 5px;
+$spacing-medium: 10px;
+$spacing-large: 15px;

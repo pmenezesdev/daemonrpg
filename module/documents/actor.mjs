@@ -53,14 +53,12 @@ export class DaemonActor extends Actor {
     }
     systemData.combat.ip = totalIp;
 
-    // --- CÁLCULO DE PONTOS DE PERÍCIA GASTOS (CORRIGIDO) ---
+    // --- CÁLCULO DE PONTOS DE PERÍCIA GASTOS ---
     let pontosGastos = 0;
-    // Soma os pontos de perícias normais
     const pericias = this.items.filter((item) => item.type === "pericia");
     for (const pericia of pericias) {
       pontosGastos += pericia.system.gasto || 0;
     }
-    // Soma os pontos de perícias de combate (ataque e defesa)
     const periciasCombate = this.items.filter(
       (item) => item.type === "pericia-combate"
     );
@@ -69,5 +67,32 @@ export class DaemonActor extends Actor {
       pontosGastos += periciaC.system.gasto_def || 0;
     }
     systemData.details.skillpoints.spent = pontosGastos;
+
+    // --- CÁLCULO DE PONTOS DE APRIMORAMENTO ---
+
+    // LINHA DE CÓDIGO CORRIGIDA: Garante que o objeto 'aprimoramentos' sempre exista.
+    systemData.details.aprimoramentos = systemData.details.aprimoramentos || {};
+
+    const aprimoramentos = this.items.filter(
+      (item) => item.type === "aprimoramento"
+    );
+    let pontosPositivos = 0;
+    let pontosNegativos = 0;
+    for (const aprimoramento of aprimoramentos) {
+      const cost = aprimoramento.system.cost || 0;
+      if (cost > 0) {
+        pontosPositivos += cost;
+      } else {
+        pontosNegativos += cost;
+      }
+    }
+    systemData.details.aprimoramentos.positivos = pontosPositivos;
+    systemData.details.aprimoramentos.negativos = Math.abs(pontosNegativos);
+
+    const pontosIniciais = 5;
+    systemData.details.aprimoramentos.disponivel =
+      pontosIniciais +
+      systemData.details.aprimoramentos.negativos -
+      pontosPositivos;
   }
 }

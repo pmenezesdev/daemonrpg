@@ -23,7 +23,8 @@
         "xp": { "value": 0 },
         "biography": { "value": "" },
         "age": { "value": 30 },
-        "skillpoints": { "total": 0, "spent": 0 }
+        "skillpoints": { "total": 0, "spent": 0 },
+        "aprimoramentos": { "positivos": 0, "negativos": 0 }
       }
     }
   },

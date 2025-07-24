@@ -36,13 +36,15 @@ export class DaemonActorSheet extends ActorSheet {
     const armaduras = [];
     const itens = [];
     const periciasCombate = [];
+
+    // Novas listas para vantagens e desvantagens
+    const vantagens = [];
+    const desvantagens = [];
+
     for (const i of context.items) {
       switch (i.type) {
         case "pericia":
           pericias.push(i);
-          break;
-        case "aprimoramento":
-          aprimoramentos.push(i);
           break;
         case "arma":
           armas.push(i);
@@ -56,10 +58,20 @@ export class DaemonActorSheet extends ActorSheet {
         case "pericia-combate":
           periciasCombate.push(i);
           break;
+        case "aprimoramento":
+          // Separa os aprimoramentos em duas listas
+          if (i.system.cost >= 0) {
+            vantagens.push(i);
+          } else {
+            desvantagens.push(i);
+          }
+          break;
       }
     }
     context.system.pericias = pericias;
-    context.system.aprimoramentos = aprimoramentos;
+    context.system.aprimoramentos = aprimoramentos; // Mantemos a lista completa caso seja necessária
+    context.system.vantagens = vantagens;
+    context.system.desvantagens = desvantagens;
     context.system.armas = armas;
     context.system.armaduras = armaduras;
     context.system.itens = itens;
