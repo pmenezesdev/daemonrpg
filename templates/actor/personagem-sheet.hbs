@@ -1,7 +1,4 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
-  {{! =================================== }}
-  {{!      CABEÇALHO DA FICHA             }}
-  {{! =================================== }}
   <header class="sheet-header">
     <img
       class="profile-img"
@@ -10,14 +7,12 @@
       title="{{actor.name}}"
     />
     <div class="header-fields">
-      <h1 class="charname">
-        <input
+      <h1 class="charname"><input
           name="name"
           type="text"
           value="{{actor.name}}"
           placeholder="Nome do Personagem"
-        />
-      </h1>
+        /></h1>
       <div class="resources grid grid-4col">
         <div class="resource flex-group-center">
           <label class="resource-label">PV</label>
@@ -95,9 +90,6 @@
     </div>
   </header>
 
-  {{! =================================== }}
-  {{!      ABAS DE NAVEGAÇÃO              }}
-  {{! =================================== }}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="principal">Principal</a>
     <a class="item" data-tab="pericias">Perícias</a>
@@ -107,14 +99,32 @@
     <a class="item" data-tab="descricao">Descrição</a>
   </nav>
 
-  {{! =================================== }}
-  {{!      CORPO DA FICHA (ABAS)          }}
-  {{! =================================== }}
   <section class="sheet-body">
-    {{! Aba Principal }}
     <div class="tab" data-group="primary" data-tab="principal">
+      <div class="character-details flex-group-center">
+        <div class="form-group">
+          <label>Idade</label>
+          <input
+            type="number"
+            name="system.details.age.value"
+            value="{{system.details.age.value}}"
+          />
+        </div>
+        <div class="form-group">
+          <label>Pontos de Perícia (Gastos/Total)</label>
+          <div class="skill-points-display">
+            <span>{{system.details.skillpoints.spent}}
+              /
+              {{system.details.skillpoints.total}}</span>
+            <a
+              class="calculate-skill-points"
+              title="Calcular Total (10*Idade + 5*INT)"
+            ><i class="fas fa-calculator"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr />
       <div class="attributes grid grid-2col">
-        {{! Força }}
         <div class="attribute flexrow flex-group-center">
           <label class="attribute-label">Força</label>
           <input
@@ -129,11 +139,8 @@
             title="Rolar Força"
             data-label="Força"
             data-test-value="{{system.attributes.fr.test}}"
-          >
-            <i class="fas fa-dice-d20"></i>
-          </a>
+          ><i class="fas fa-dice-d20"></i></a>
         </div>
-        {{! Constituição }}
         <div class="attribute flexrow flex-group-center">
           <label class="attribute-label">Constituição</label>
           <input
@@ -148,11 +155,8 @@
             title="Rolar Constituição"
             data-label="Constituição"
             data-test-value="{{system.attributes.con.test}}"
-          >
-            <i class="fas fa-dice-d20"></i>
-          </a>
+          ><i class="fas fa-dice-d20"></i></a>
         </div>
-        {{! Destreza }}
         <div class="attribute flexrow flex-group-center">
           <label class="attribute-label">Destreza</label>
           <input
@@ -167,11 +171,8 @@
             title="Rolar Destreza"
             data-label="Destreza"
             data-test-value="{{system.attributes.dex.test}}"
-          >
-            <i class="fas fa-dice-d20"></i>
-          </a>
+          ><i class="fas fa-dice-d20"></i></a>
         </div>
-        {{! Agilidade }}
         <div class="attribute flexrow flex-group-center">
           <label class="attribute-label">Agilidade</label>
           <input
@@ -186,11 +187,8 @@
             title="Rolar Agilidade"
             data-label="Agilidade"
             data-test-value="{{system.attributes.agi.test}}"
-          >
-            <i class="fas fa-dice-d20"></i>
-          </a>
+          ><i class="fas fa-dice-d20"></i></a>
         </div>
-        {{! Inteligência }}
         <div class="attribute flexrow flex-group-center">
           <label class="attribute-label">Inteligência</label>
           <input
@@ -205,11 +203,8 @@
             title="Rolar Inteligência"
             data-label="Inteligência"
             data-test-value="{{system.attributes.int.test}}"
-          >
-            <i class="fas fa-dice-d20"></i>
-          </a>
+          ><i class="fas fa-dice-d20"></i></a>
         </div>
-        {{! Força de Vontade }}
         <div class="attribute flexrow flex-group-center">
           <label class="attribute-label">F. de Vontade</label>
           <input
@@ -224,11 +219,8 @@
             title="Rolar Força de Vontade"
             data-label="Força de Vontade"
             data-test-value="{{system.attributes.will.test}}"
-          >
-            <i class="fas fa-dice-d20"></i>
-          </a>
+          ><i class="fas fa-dice-d20"></i></a>
         </div>
-        {{! Percepção }}
         <div class="attribute flexrow flex-group-center">
           <label class="attribute-label">Percepção</label>
           <input
@@ -243,11 +235,8 @@
             title="Rolar Percepção"
             data-label="Percepção"
             data-test-value="{{system.attributes.per.test}}"
-          >
-            <i class="fas fa-dice-d20"></i>
-          </a>
+          ><i class="fas fa-dice-d20"></i></a>
         </div>
-        {{! Carisma }}
         <div class="attribute flexrow flex-group-center">
           <label class="attribute-label">Carisma</label>
           <input
@@ -262,19 +251,16 @@
             title="Rolar Carisma"
             data-label="Carisma"
             data-test-value="{{system.attributes.car.test}}"
-          >
-            <i class="fas fa-dice-d20"></i>
-          </a>
+          ><i class="fas fa-dice-d20"></i></a>
         </div>
       </div>
     </div>
 
-    {{! Aba de Perícias }}
     <div class="tab" data-group="primary" data-tab="pericias">
       <ol class="items-list">
         <li class="item flexrow items-header">
           <div class="item-name flex-2">Nome</div>
-          <div class="item-data">Valor</div>
+          <div class="item-data">Total</div>
           <div class="item-controls">
             <a
               class="item-control item-create"
@@ -289,7 +275,7 @@
               <img src="{{item.img}}" width="24" height="24" />
               <h4>{{item.name}}</h4>
             </div>
-            <div class="item-data">{{item.system.value}}%</div>
+            <div class="item-data">{{item.system.total}}%</div>
             <div class="item-controls">
               <a class="item-control item-edit" title="Editar Perícia"><i
                   class="fas fa-edit"
@@ -303,8 +289,48 @@
       </ol>
     </div>
 
-    {{! Aba de Combate }}
     <div class="tab" data-group="primary" data-tab="combate">
+      <div class="combat-summary flex-group-center">
+        <h4>Sumário de Combate</h4>
+        <div class="stat">
+          <label>Índice de Proteção (IP) Total:</label>
+          <span class="stat-value">{{system.combat.ip}}</span>
+        </div>
+      </div>
+      <hr />
+      <ol class="items-list">
+        <li class="item flexrow items-header">
+          <div class="item-name flex-2">Perícia de Combate</div>
+          <div class="item-data">Ataque</div>
+          <div class="item-data">Defesa</div>
+          <div class="item-controls">
+            <a
+              class="item-control item-create"
+              title="Adicionar Perícia de Combate"
+              data-type="pericia-combate"
+            ><i class="fas fa-plus"></i> Adicionar</a>
+          </div>
+        </li>
+        {{#each system.periciasCombate as |item id|}}
+          <li class="item flexrow" data-item-id="{{item._id}}">
+            <div class="item-name flex-2">{{item.name}}</div>
+            <div class="item-data">{{item.system.total_atk}}%</div>
+            <div class="item-data">{{item.system.total_def}}%</div>
+            <div class="item-controls">
+              <a
+                class="item-control item-attack"
+                title="Atacar com {{item.name}}"
+              ><i class="fas fa-fist-raised"></i></a>
+              <a class="item-control item-edit" title="Editar Perícia"><i
+                  class="fas fa-edit"
+                ></i></a>
+              <a class="item-control item-delete" title="Deletar Perícia"><i
+                  class="fas fa-trash"
+                ></i></a>
+            </div>
+          </li>
+        {{/each}}
+      </ol>
       <ol class="items-list">
         <li class="item flexrow items-header">
           <div class="item-name flex-2">Arma</div>
@@ -374,7 +400,6 @@
       </ol>
     </div>
 
-    {{! Aba de Aprimoramentos }}
     <div class="tab" data-group="primary" data-tab="aprimoramentos">
       <ol class="items-list">
         <li class="item flexrow items-header">
@@ -406,7 +431,6 @@
       </ol>
     </div>
 
-    {{! Aba de Equipamentos }}
     <div class="tab" data-group="primary" data-tab="equipamentos">
       <ol class="items-list">
         <li class="item flexrow items-header">
@@ -435,7 +459,6 @@
       </ol>
     </div>
 
-    {{! Aba de Descrição }}
     <div class="tab" data-group="primary" data-tab="descricao">
       {{editor
         system.details.biography.value

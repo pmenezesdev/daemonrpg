@@ -12,22 +12,13 @@ export class DaemonActor extends Actor {
    * @override
    */
   prepareDerivedData() {
-    console.log(
-      "Daemon | Preparando dados para o ator:",
-      this.name,
-      this.system
-    );
     const systemData = this.system;
-    // --- Garante que este código só rode para atores do tipo "personagem" ---
     if (this.type !== "personagem") return;
 
     // --- Cálculos dos Atributos ---
     for (let [key, attribute] of Object.entries(systemData.attributes)) {
-      // Regra do Daemon (pág. 5): Valor de Teste = Valor do Atributo x 4.
       attribute.test = attribute.value * 4;
     }
-
-    // Regra do Bônus de Dano (pág. 9): (Força - 13.5) / 2
     systemData.attributes.fr.dmg = Math.floor(
       (systemData.attributes.fr.value - 13.5) / 2
     );
@@ -35,10 +26,25 @@ export class DaemonActor extends Actor {
     // --- Cálculos dos Recursos ---
     const attributes = systemData.attributes;
     const details = systemData.details;
-
-    // Regra dos Pontos de Vida (pág. 6): (Força + Constituição) / 2 + Nível.
     systemData.resources.pv.max =
       Math.ceil((attributes.fr.value + attributes.con.value) / 2) +
       details.level.value;
+
+    // --- Cálculos de Combate ---
+    systemData.combat = systemData.combat || {};
+    const armaduras = this.items.filter((item) => item.type === "armadura");
+    let totalIp = 0;
+    for (const armadura of armaduras) {
+      totalIp += armadura.system.ip || 0;
+    }
+    systemData.combat.ip = totalIp;
+
+    // --- Cálculo de Pontos de Perícia Gastos ---
+    const pericias = this.items.filter((item) => item.type === "pericia");
+    let pontosGastos = 0;
+    for (const pericia of pericias) {
+      pontosGastos += pericia.system.gasto || 0;
+    }
+    systemData.details.skillpoints.spent = pontosGastos;
   }
 }

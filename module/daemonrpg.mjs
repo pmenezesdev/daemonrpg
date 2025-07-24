@@ -144,3 +144,49 @@ function rollItemMacro(itemUuid) {
     item.roll();
   });
 }
+
+// ================================================================= //
+// ===== NOVO HOOK PARA APLICAÇÃO DE DANO ========================== //
+// ================================================================= //
+
+// Este Hook é ativado toda vez que uma mensagem é renderizada no chat.
+Hooks.on("renderChatMessage", (chatMessage, html, messageData) => {
+  // Encontra qualquer botão com a classe .apply-damage dentro da mensagem
+  const applyButton = html.find(".apply-damage");
+
+  // Se encontrar um botão, adiciona um "listener" de clique a ele
+  if (applyButton.length > 0) {
+    applyButton.on("click", (event) => {
+      // Pega a quantidade de dano do atributo 'data-damage' do botão
+      const damage = parseInt(event.currentTarget.dataset.damage);
+
+      // Pega todos os tokens que estão selecionados no mapa
+      const selectedTokens = canvas.tokens.controlled;
+
+      // Se nenhum token estiver selecionado, exibe um aviso
+      if (selectedTokens.length === 0) {
+        ui.notifications.warn(
+          "Por favor, selecione um ou mais tokens para aplicar o dano."
+        );
+        return;
+      }
+
+      // Itera sobre cada token selecionado para aplicar o dano
+      selectedTokens.forEach((token) => {
+        const actor = token.actor;
+        const ip = actor.system.combat.ip || 0;
+        const pv = actor.system.resources.pv;
+
+        // Regra de Dano de Impacto (pág. 25): Dano mínimo de 1, mesmo se o IP absorver tudo.
+        const danoFinal = Math.max(1, damage - ip);
+        const novosPV = Math.max(0, pv.value - danoFinal);
+
+        // Atualiza os Pontos de Vida do ator
+        actor.update({ "system.resources.pv.value": novosPV });
+
+        // Mostra o dano sofrido no token (aqueles números que flutuam)
+        token.showFloatyText({ damage: -danoFinal });
+      });
+    });
+  }
+});

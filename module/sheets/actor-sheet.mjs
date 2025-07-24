@@ -1,5 +1,5 @@
 export class DaemonActorSheet extends ActorSheet {
-  // ... (static get defaultOptions e getData continuam os mesmos de antes) ...
+  /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["daemonrpg", "sheet", "actor"],
@@ -16,6 +16,7 @@ export class DaemonActorSheet extends ActorSheet {
     });
   }
 
+  /** @override */
   async getData() {
     const context = await super.getData();
     context.system = context.actor.system;
@@ -29,6 +30,7 @@ export class DaemonActorSheet extends ActorSheet {
     const armas = [];
     const armaduras = [];
     const itens = [];
+    const periciasCombate = [];
 
     for (const i of context.items) {
       switch (i.type) {
@@ -47,14 +49,17 @@ export class DaemonActorSheet extends ActorSheet {
         case "item":
           itens.push(i);
           break;
+        case "pericia-combate":
+          periciasCombate.push(i);
+          break;
       }
     }
-
     context.system.pericias = pericias;
     context.system.aprimoramentos = aprimoramentos;
     context.system.armas = armas;
     context.system.armaduras = armaduras;
     context.system.itens = itens;
+    context.system.periciasCombate = periciasCombate;
   }
 
   /** @override */
@@ -62,42 +67,31 @@ export class DaemonActorSheet extends ActorSheet {
     super.activateListeners(html);
     if (!this.isEditable) return;
 
-    // Listeners existentes
+    // Listeners para todos os botões e interações
     html.find(".roll-attribute").on("click", this._onAttributeRoll.bind(this));
     html.find(".item .rollable").on("click", this._onItemRoll.bind(this));
     html.find(".item-edit").on("click", this._onItemEdit.bind(this));
     html.find(".item-delete").on("click", this._onItemDelete.bind(this));
     html.find(".item-create").on("click", this._onItemCreate.bind(this));
-
-    // NOVO LISTENER PARA O BOTÃO DE ATAQUE
     html.find(".item-attack").on("click", this._onItemAttack.bind(this));
+    html
+      .find(".calculate-skill-points")
+      .on("click", this._onCalculateSkillPoints.bind(this));
   }
 
-  // ... (_onAttributeRoll, _onItemRoll, _onItemEdit continuam aqui) ...
-  // ... (Adicione _onItemDelete e _onItemCreate se não os tiver) ...
-
-  /**
-   * NOVA FUNÇÃO PARA ROLAGEM DE ATAQUE
-   * @param {Event} event O evento de clique.
-   * @private
-   */
   async _onItemAttack(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const itemId = element.closest(".item").dataset.itemId;
     const item = this.actor.items.get(itemId);
 
-    // HTML para a janela de diálogo
-    const content = `
-      <form>
-        <div class="form-group">
-          <label>Defesa do Alvo</label>
-          <input type="number" name="defesaAlvo" value="30"/>
-        </div>
-      </form>
-    `;
+    const ataquePersonagem =
+      item.type === "pericia-combate"
+        ? item.system.total_atk || 0
+        : item.system.attack || 0;
+    const danoFormula = item.system.damage || "1d3";
 
-    // Cria e exibe a janela de diálogo
+    const content = `<form><div class="form-group"><label>Defesa do Alvo</label><input type="number" name="defesaAlvo" value="30"/></div></form>`;
     new Dialog({
       title: `Atacar com ${item.name}`,
       content: content,
@@ -108,64 +102,58 @@ export class DaemonActorSheet extends ActorSheet {
           callback: async (html) => {
             const defesaAlvo =
               parseInt(html.find('[name="defesaAlvo"]').val()) || 0;
-            const ataquePersonagem = item.system.attack || 0;
-
-            // Regra de Ataque do Daemon
             const chance = 50 + ataquePersonagem - defesaAlvo;
             const roll = new Roll("1d100");
             await roll.evaluate({ async: true });
-
-            const critico =
-              item.system.critical || Math.floor(ataquePersonagem / 4);
-            const isSuccess = roll.total <= chance;
+            const critico = Math.floor(ataquePersonagem / 4);
+            const isSuccess = roll.total <= chance && roll.total <= 95;
             const isCritical = roll.total <= critico;
 
             let flavor = `Teste de Ataque: <strong>${item.name}</strong> vs Defesa ${defesaAlvo}`;
-            if (isCritical) {
-              flavor += ` (Acerto Crítico!)`;
-            } else if (isSuccess) {
-              flavor += ` (Sucesso!)`;
-            } else {
-              flavor += ` (Falha!)`;
-            }
-
-            // Envia o resultado para o chat
+            flavor += isCritical
+              ? ` (Acerto Crítico!)`
+              : isSuccess
+              ? ` (Sucesso!)`
+              : ` (Falha!)`;
             await roll.toMessage({
               speaker: ChatMessage.getSpeaker({ actor: this.actor }),
               flavor: flavor,
             });
 
-            // Se acertou, rola o dano
             if (isSuccess) {
-              // Rola o dano 1x para sucesso normal, 2x para crítico
-              const danoFormula = isCritical
-                ? `2 * (${item.system.damage})`
-                : item.system.damage;
-              const danoRoll = new Roll(danoFormula, this.actor.getRollData());
+              const formulaFinalDano = isCritical
+                ? `2 * (${danoFormula})`
+                : danoFormula;
+              const danoRoll = new Roll(
+                formulaFinalDano,
+                this.actor.getRollData()
+              );
               await danoRoll.evaluate({ async: true });
-
               const bonusDano = this.actor.system.attributes.fr.dmg || 0;
               const totalDano = danoRoll.total + bonusDano;
-
-              await danoRoll.toMessage({
+              const damageContent = `<div class="dice-roll"><div class="dice-result"><h4 class="dice-total">${totalDano}</h4><div class="dice-formula">${danoRoll.formula} + ${bonusDano} (FR)</div></div></div><div class="damage-buttons"><button class="apply-damage" data-damage="${totalDano}">Aplicar Dano</button></div>`;
+              await ChatMessage.create({
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: `Dano com <strong>${item.name}</strong>`,
-                content: `<div class="dice-roll"><div class="dice-result"><h4 class="dice-total">${totalDano}</h4></div></div>`,
+                content: damageContent,
               });
             }
           },
         },
-        cancelar: {
-          icon: '<i class="fas fa-times"></i>',
-          label: "Cancelar",
-        },
+        cancelar: { icon: '<i class="fas fa-times"></i>', label: "Cancelar" },
       },
       default: "atacar",
     }).render(true);
   }
 
-  // Adicione estas funções se elas não estiverem no seu arquivo.
-  // Elas permitem criar e deletar itens diretamente da ficha.
+  _onItemRoll(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const itemId = element.closest(".item").dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    return item.roll();
+  }
+
   _onItemEdit(event) {
     event.preventDefault();
     const element = event.currentTarget;
@@ -190,13 +178,6 @@ export class DaemonActorSheet extends ActorSheet {
     await this.actor.createEmbeddedDocuments("Item", [itemData]);
   }
 
-  // Dentro da classe DaemonActorSheet
-
-  /**
-   * Lida com a rolagem de um teste de atributo, agora com diálogo de dificuldade.
-   * @param {Event} event O evento de clique original.
-   * @private
-   */
   async _onAttributeRoll(event) {
     event.preventDefault();
     const element = event.currentTarget;
@@ -210,7 +191,6 @@ export class DaemonActorSheet extends ActorSheet {
       const success = roll.total <= valorAlvo && roll.total <= 95;
       let flavor = `Teste de <strong>${attributeName}</strong>`;
       flavor += success ? ` (Sucesso!)` : ` (Falha!)`;
-
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: flavor,
@@ -243,11 +223,16 @@ export class DaemonActorSheet extends ActorSheet {
     }).render(true);
   }
 
-  _onItemRoll(event) {
+  async _onCalculateSkillPoints(event) {
     event.preventDefault();
-    const element = event.currentTarget;
-    const itemId = element.closest(".item").dataset.itemId;
-    const item = this.actor.items.get(itemId);
-    return item.roll();
+    const age = this.actor.system.details.age.value || 0;
+    const intelligence = this.actor.system.attributes.int.value || 0;
+    const totalPoints = 10 * age + 5 * intelligence;
+    await this.actor.update({
+      "system.details.skillpoints.total": totalPoints,
+    });
+    ui.notifications.info(
+      `Total de Pontos de Perícia calculado: ${totalPoints}`
+    );
   }
 }

@@ -11,7 +11,7 @@
           name="name"
           type="text"
           value="{{item.name}}"
-          placeholder="Nome da Perícia"
+          placeholder="Nome da Perícia de Combate"
         /></h1>
     </div>
   </header>
@@ -20,30 +20,39 @@
       <label>Atributo Base</label>
       <select name="system.attribute">
         {{#select system.attribute}}
-          <option value="fr">Força (FR)</option>
-          <option value="con">Constituição (CON)</option>
           <option value="dex">Destreza (DEX)</option>
           <option value="agi">Agilidade (AGI)</option>
-          <option value="int">Inteligência (INT)</option>
-          <option value="will">F. de Vontade (WILL)</option>
-          <option value="per">Percepção (PER)</option>
-          <option value="car">Carisma (CAR)</option>
+          <option value="fr">Força (FR)</option>
           <option value="none">Nenhum (0)</option>
         {{/select}}
       </select>
     </div>
     <div class="form-group">
-      <label>Pontos Gastos</label>
+      <label>Pontos Gastos (Ataque)</label>
       <input
         type="text"
-        name="system.gasto"
-        value="{{system.gasto}}"
+        name="system.gasto_atk"
+        value="{{system.gasto_atk}}"
         data-dtype="Number"
       />
     </div>
-    <hr />
     <div class="form-group">
-      <h3>Total da Perícia: {{system.total}}%</h3>
+      <label>Pontos Gastos (Defesa)</label>
+      <input
+        type="text"
+        name="system.gasto_def"
+        value="{{system.gasto_def}}"
+        data-dtype="Number"
+      />
+    </div>
+    <div class="form-group">
+      <label>Dano (ex: 1d3 para Briga)</label>
+      <input type="text" name="system.damage" value="{{system.damage}}" />
+    </div>
+    <hr />
+    <div class="form-group totals">
+      <h3>Ataque Total: {{system.total_atk}}%</h3>
+      <h3>Defesa Total: {{system.total_def}}%</h3>
     </div>
   </section>
 </form>

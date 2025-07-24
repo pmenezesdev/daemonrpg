@@ -1,48 +1,49 @@
 {
   "Actor": {
     "types": ["personagem"],
-    "templates": {
-      "base": {
-        "attributes": {
-          "fr": { "value": 10 },
-          "con": { "value": 10 },
-          "dex": { "value": 10 },
-          "agi": { "value": 10 },
-          "int": { "value": 10 },
-          "will": { "value": 10 },
-          "per": { "value": 10 },
-          "car": { "value": 10 }
-        },
-        "resources": {
-          "pv": { "value": 11, "max": 11, "label": "Pontos de Vida" },
-          "ph": { "value": 0, "max": 0, "label": "Pontos Heroicos" },
-          "magia": { "value": 0, "max": 0, "label": "Pontos de Magia" },
-          "focus": { "value": 0, "max": 0, "label": "Pontos de Focus" }
-        },
-        "details": {
-          "level": { "value": 1 },
-          "xp": { "value": 0 },
-          "biography": { "value": "" }
-        }
-      }
-    },
     "personagem": {
-      "templates": ["base"]
+      "attributes": {
+        "fr": { "value": 10 },
+        "con": { "value": 10 },
+        "dex": { "value": 10 },
+        "agi": { "value": 10 },
+        "int": { "value": 10 },
+        "will": { "value": 10 },
+        "per": { "value": 10 },
+        "car": { "value": 10 }
+      },
+      "resources": {
+        "pv": { "value": 11, "max": 11 },
+        "ph": { "value": 0, "max": 0 },
+        "magia": { "value": 0, "max": 0 },
+        "focus": { "value": 0, "max": 0 }
+      },
+      "details": {
+        "level": { "value": 1 },
+        "xp": { "value": 0 },
+        "biography": { "value": "" },
+        "age": { "value": 30 },
+        "skillpoints": { "total": 0, "spent": 0 }
+      }
     }
   },
   "Item": {
-    "types": ["pericia", "aprimoramento", "arma", "armadura", "item"],
+    "types": [
+      "pericia",
+      "aprimoramento",
+      "arma",
+      "armadura",
+      "item",
+      "pericia-combate"
+    ],
     "templates": {
-      "base": {
-        "description": {
-          "value": ""
-        }
-      }
+      "base": { "description": { "value": "" } }
     },
     "pericia": {
       "templates": ["base"],
-      "value": 0,
-      "attribute": "int"
+      "gasto": 10,
+      "attribute": "int",
+      "total": 10
     },
     "aprimoramento": {
       "templates": ["base"],
@@ -61,6 +62,15 @@
     "item": {
       "templates": ["base"],
       "quantity": 1
+    },
+    "pericia-combate": {
+      "templates": ["base"],
+      "gasto_atk": 10,
+      "gasto_def": 10,
+      "attribute": "dex",
+      "total_atk": 10,
+      "total_def": 10,
+      "damage": "1d3"
     }
   }
 }
