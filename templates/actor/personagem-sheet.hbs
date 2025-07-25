@@ -93,6 +93,19 @@
   <section class="sheet-body">
     {{! Aba Principal }}
     <div class="tab" data-group="primary" data-tab="principal">
+      {{! NOVO BLOCO PARA EXIBIR O KIT ATIVO }}
+      {{#if system.activeKit}}
+        <div class="active-kit flex-group-center">
+          <label>Kit de Personagem Ativo</label>
+          <div class="kit-info">
+            <span>{{system.activeKit.name}}</span>
+            <a class="kit-remove" title="Remover Kit e seus itens"><i
+                class="fas fa-trash"
+              ></i></a>
+          </div>
+        </div>
+        <hr />
+      {{/if}}
       <div class="character-details flex-group-center">
         <div class="form-group">
           <label>Idade</label>

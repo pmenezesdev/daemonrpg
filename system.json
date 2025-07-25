@@ -5,7 +5,8 @@
   "authors": [
     {
       "name": "Mestre Arboreal",
-      "discord": "arboreall"
+      "discord": "arboreall",
+      "flags": {}
     }
   ],
   "url": "https://github.com/pmenezesdev/daemonrpg",
@@ -15,23 +16,25 @@
   "changelog": "CHANGELOG.md",
   "version": "0.1.0",
   "compatibility": {
-    "minimum": 11,
-    "verified": "11.315"
+    "minimum": "11",
+    "verified": "12.343"
   },
-  "esmodules": ["module/daemonrpg.mjs"],
-  "styles": ["css/daemonrpg.css"],
+  "esmodules": [
+    "module/daemonrpg.mjs"
+  ],
+  "styles": [
+    "css/daemonrpg.css"
+  ],
   "languages": [
     {
       "lang": "pt-BR",
       "name": "Português (Brasil)",
-      "path": "lang/pt-br.json"
+      "path": "lang/pt-br.json",
+      "flags": {}
     }
   ],
-  "socket": false,
   "manifest": "https://raw.githubusercontent.com/pmenezesdev/daemonrpg/main/system.json",
   "download": "https://github.com/pmenezesdev/daemonrpg/archive/refs/tags/v0.1.0.zip",
-  "gridDistance": 1,
-  "gridUnits": "m",
   "primaryTokenAttribute": "pv",
   "secondaryTokenAttribute": "ph",
   "packs": [
@@ -39,33 +42,52 @@
       "name": "aprimoramentos",
       "label": "Aprimoramentos",
       "system": "daemonrpg",
-      "path": "./packs/aprimoramentos.db",
+      "path": "packs/aprimoramentos",
       "type": "Item",
-      "private": false
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     },
     {
       "name": "armas",
       "label": "Armas",
       "system": "daemonrpg",
-      "path": "./packs/armas.db",
+      "path": "packs/armas",
       "type": "Item",
-      "private": false
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     },
     {
       "name": "pericias-comuns",
       "label": "Perícias Comuns",
       "system": "daemonrpg",
-      "path": "./packs/pericias-comuns.db",
+      "path": "packs/pericias-comuns",
       "type": "Item",
-      "private": false
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     },
     {
       "name": "pericias-combate",
       "label": "Perícias de Combate",
       "system": "daemonrpg",
-      "path": "./packs/pericias-combate.db",
+      "path": "packs/pericias-combate",
       "type": "Item",
-      "private": false
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     }
-  ]
+  ],
+  "grid": {
+    "units": "m"
+  }
 }

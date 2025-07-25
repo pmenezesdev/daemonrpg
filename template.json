@@ -35,7 +35,8 @@
       "arma",
       "armadura",
       "item",
-      "pericia-combate"
+      "pericia-combate",
+      "kit"
     ],
     "templates": {
       "base": { "description": { "value": "" } }
@@ -77,6 +78,14 @@
       "total_atk": 10,
       "total_def": 10,
       "armaVinculada": ""
+    },
+    "kit": {
+      "templates": ["base"],
+      "cost": {
+        "aprimoramento": 0,
+        "pericia": 0
+      },
+      "recipe": ""
     }
   }
 }

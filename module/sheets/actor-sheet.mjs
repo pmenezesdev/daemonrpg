@@ -36,10 +36,9 @@ export class DaemonActorSheet extends ActorSheet {
     const armaduras = [];
     const itens = [];
     const periciasCombate = [];
-
-    // Novas listas para vantagens e desvantagens
     const vantagens = [];
     const desvantagens = [];
+    let activeKit = null;
 
     for (const i of context.items) {
       switch (i.type) {
@@ -58,8 +57,10 @@ export class DaemonActorSheet extends ActorSheet {
         case "pericia-combate":
           periciasCombate.push(i);
           break;
+        case "kit":
+          activeKit = i;
+          break;
         case "aprimoramento":
-          // Separa os aprimoramentos em duas listas
           if (i.system.cost >= 0) {
             vantagens.push(i);
           } else {
@@ -69,19 +70,20 @@ export class DaemonActorSheet extends ActorSheet {
       }
     }
     context.system.pericias = pericias;
-    context.system.aprimoramentos = aprimoramentos; // Mantemos a lista completa caso seja necessária
     context.system.vantagens = vantagens;
     context.system.desvantagens = desvantagens;
     context.system.armas = armas;
     context.system.armaduras = armaduras;
     context.system.itens = itens;
     context.system.periciasCombate = periciasCombate;
+    context.system.activeKit = activeKit;
   }
 
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
     if (!this.isEditable) return;
+
     html.find(".roll-attribute").on("click", this._onAttributeRoll.bind(this));
     html.find(".item .rollable").on("click", this._onItemRoll.bind(this));
     html.find(".item-edit").on("click", this._onItemEdit.bind(this));
@@ -91,6 +93,76 @@ export class DaemonActorSheet extends ActorSheet {
     html
       .find(".calculate-skill-points")
       .on("click", this._onCalculateSkillPoints.bind(this));
+    html.find(".kit-remove").on("click", this._onRemoveKit.bind(this));
+  }
+
+  /** @override */
+  async _onDropItem(event, data) {
+    const item = await Item.fromDropData(data);
+    if (item.type === "kit") {
+      const hasKit = this.actor.items.some((i) => i.type === "kit");
+      if (hasKit) {
+        ui.notifications.warn(
+          "Um personagem só pode ter um Kit de cada vez. Remova o kit atual antes de adicionar um novo."
+        );
+        return false;
+      }
+
+      const kitItemData = item.toObject();
+      const itemsToCreate = [];
+
+      try {
+        const recipe = JSON.parse(kitItemData.system.recipe || "[]");
+        if (recipe.length > 0) {
+          for (const itemData of recipe) {
+            itemData.flags = { daemonrpg: { kitOrigin: kitItemData.name } };
+            itemsToCreate.push(itemData);
+          }
+        }
+      } catch (e) {
+        console.error("Daemon RPG | Erro ao processar a receita do Kit:", e);
+        ui.notifications.error(
+          `A receita do Kit "${kitItemData.name}" contém um erro de formato (JSON inválido).`
+        );
+        return false;
+      }
+
+      await this.actor.createEmbeddedDocuments("Item", [
+        kitItemData,
+        ...itemsToCreate,
+      ]);
+      ui.notifications.info(`Kit "${kitItemData.name}" aplicado com sucesso!`);
+      return;
+    }
+
+    return super._onDropItem(event, data);
+  }
+
+  async _onRemoveKit(event) {
+    event.preventDefault();
+    const kitToRemove = this.actor.items.find((i) => i.type === "kit");
+    if (!kitToRemove) return;
+
+    Dialog.confirm({
+      title: "Remover Kit de Personagem",
+      content: `<p>Tem a certeza que deseja remover o kit "<strong>${kitToRemove.name}</strong>"? Todos os aprimoramentos e perícias concedidos por ele serão apagados.</p>`,
+      yes: async () => {
+        const idsToDelete = [];
+        const itemsFromKit = this.actor.items.filter(
+          (i) => i.flags?.daemonrpg?.kitOrigin === kitToRemove.name
+        );
+
+        idsToDelete.push(...itemsFromKit.map((i) => i.id));
+        idsToDelete.push(kitToRemove.id);
+
+        await this.actor.deleteEmbeddedDocuments("Item", idsToDelete);
+        ui.notifications.info(
+          `Kit "${kitToRemove.name}" removido com sucesso.`
+        );
+      },
+      no: () => {},
+      defaultYes: false,
+    });
   }
 
   async _onItemAttack(event) {
@@ -148,7 +220,6 @@ export class DaemonActorSheet extends ActorSheet {
               } else if (item.type === "arma") {
                 armaUsada = item;
               }
-
               if (armaUsada) {
                 const danoFormula = isCritical
                   ? `2 * (${armaUsada.system.damage})`
@@ -158,14 +229,12 @@ export class DaemonActorSheet extends ActorSheet {
                   this.actor.getRollData()
                 );
                 await danoRoll.evaluate({ async: true });
-
                 let bonusDano = 0;
                 let formulaDisplay = danoRoll.formula;
                 if (armaUsada.system.weaponType === "corporal") {
                   bonusDano = this.actor.system.attributes.fr.dmg || 0;
                   formulaDisplay += ` + ${bonusDano} (FR)`;
                 }
-
                 const totalDano = danoRoll.total + bonusDano;
                 const damageContent = `<div class="dice-roll"><div class="dice-result"><h4 class="dice-total">${totalDano}</h4><div class="dice-formula">${formulaDisplay}</div></div></div><div class="damage-buttons"><button class="apply-damage" data-damage="${totalDano}">Aplicar Dano</button></div>`;
                 await ChatMessage.create({
@@ -221,7 +290,6 @@ export class DaemonActorSheet extends ActorSheet {
     const dataset = element.dataset;
     const testValue = parseInt(dataset.testValue);
     const attributeName = dataset.label;
-
     const realizarTesteAtributo = async (valorAlvo) => {
       const roll = new Roll("1d100");
       await roll.evaluate({ async: true });
@@ -238,7 +306,6 @@ export class DaemonActorSheet extends ActorSheet {
         }</h4><div class="dice-formula">/ ${valorAlvo}%</div></div></div>`,
       });
     };
-
     new Dialog({
       title: `Teste de Atributo: ${attributeName}`,
       content: `<p>Escolha a dificuldade do teste para ${attributeName} (${testValue}%)</p>`,

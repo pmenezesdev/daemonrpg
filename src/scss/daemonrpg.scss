@@ -19,3 +19,45 @@
   @import "components/items";
   @import "components/effects";
 }
+
+// Importa as fontes do Google
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Signika:wght@400;600&display=swap");
+
+// Importa nossas paletas de cores
+@import "components/variables";
+
+// ... (todo o código SCSS anterior permanece o mesmo até o final) ...
+
+// ===================================
+//      ESTILOS ESPECÍFICOS DO ITEM
+// ===================================
+.daemonrpg.sheet.item {
+  min-width: 400px;
+  min-height: 480px;
+
+  // Estilos para a ficha de Kit
+  .kit-recipe {
+    height: 150px;
+    font-family: monospace;
+    font-size: 0.9em;
+    text-align: left;
+  }
+
+  .form-group-hint {
+    margin-top: $spacing-medium;
+    padding: $spacing-small;
+    border-radius: 3px;
+    background-color: var(--bg-input);
+    p {
+      margin: 0 0 $spacing-small 0;
+      color: var(--text-secondary);
+    }
+    pre {
+      white-space: pre-wrap;
+      margin: 0;
+      font-family: monospace;
+      font-size: 0.9em;
+      color: var(--accent);
+    }
+  }
+}

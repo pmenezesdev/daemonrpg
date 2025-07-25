@@ -1,0 +1,69 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <img
+      class="profile-img"
+      src="{{item.img}}"
+      data-edit="img"
+      title="{{item.name}}"
+    />
+    <div class="header-fields">
+      <h1 class="charname"><input
+          name="name"
+          type="text"
+          value="{{item.name}}"
+          placeholder="Nome do Kit"
+        /></h1>
+    </div>
+  </header>
+
+  <section class="sheet-body">
+    <div class="grid grid-2col">
+      <div class="form-group">
+        <label>Custo (Pontos de Aprimoramento)</label>
+        <input
+          type="number"
+          name="system.cost.aprimoramento"
+          value="{{system.cost.aprimoramento}}"
+        />
+      </div>
+      <div class="form-group">
+        <label>Custo (Pontos de Perícia)</label>
+        <input
+          type="number"
+          name="system.cost.pericia"
+          value="{{system.cost.pericia}}"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Descrição do Kit</label>
+      <textarea
+        name="system.description.value"
+      >{{system.description.value}}</textarea>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+      <label>Receita do Kit (em formato JSON)</label>
+      <textarea
+        class="kit-recipe"
+        name="system.recipe"
+      >{{system.recipe}}</textarea>
+    </div>
+
+    <div class="form-group-hint">
+      <p><strong>Dica:</strong>
+        Copie e cole o formato abaixo, alterando os valores. Use um validador de
+        JSON online se tiver dúvidas.</p>
+      <pre>
+        [ { "type": "pericia", "name": "Nome da Perícia", "system": { "gasto":
+        20, "attribute": "dex" } }, { "type": "aprimoramento", "name": "Nome do
+        Aprimoramento", "system": { "cost": 2 } }, { "type": "pericia-combate",
+        "name": "Briga", "system": { "gasto_atk": 10, "gasto_def": 10,
+        "attribute": "dex" } } ]
+      </pre>
+    </div>
+  </section>
+</form>

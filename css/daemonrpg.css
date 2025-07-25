@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 /* Global styles */
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Signika:wght@400;600&display=swap");
 .window-app {
   font-family: "Roboto", sans-serif;
 }
@@ -365,4 +366,30 @@
   border: none;
 }
 
-/*# sourceMappingURL=daemonrpg.css.map */
+.daemonrpg.sheet.item {
+  min-width: 400px;
+  min-height: 480px;
+}
+.daemonrpg.sheet.item .kit-recipe {
+  height: 150px;
+  font-family: monospace;
+  font-size: 0.9em;
+  text-align: left;
+}
+.daemonrpg.sheet.item .form-group-hint {
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: var(--bg-input);
+}
+.daemonrpg.sheet.item .form-group-hint p {
+  margin: 0 0 5px 0;
+  color: var(--text-secondary);
+}
+.daemonrpg.sheet.item .form-group-hint pre {
+  white-space: pre-wrap;
+  margin: 0;
+  font-family: monospace;
+  font-size: 0.9em;
+  color: var(--accent);
+}
