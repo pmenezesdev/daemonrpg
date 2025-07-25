@@ -15,8 +15,8 @@
       "resources": {
         "pv": { "value": 11, "max": 11 },
         "ph": { "value": 0, "max": 0 },
-        "magia": { "value": 0, "max": 0 },
-        "focus": { "value": 0, "max": 0 }
+        "magia": { "value": 1, "max": 1 },
+        "focus": { "value": 2, "max": 2 }
       },
       "details": {
         "level": { "value": 1 },
@@ -25,6 +25,27 @@
         "age": { "value": 30 },
         "skillpoints": { "total": 0, "spent": 0 },
         "aprimoramentos": { "positivos": 0, "negativos": 0, "disponivel": 5 }
+      },
+      "magia": {
+        "formas": {
+          "criar": { "value": 0 },
+          "entender": { "value": 0 },
+          "controlar": { "value": 0 }
+        },
+        "caminhos": {
+          "agua": { "value": 0 },
+          "ar": { "value": 0 },
+          "fogo": { "value": 0 },
+          "luz": { "value": 0 },
+          "terra": { "value": 0 },
+          "trevas": { "value": 0 },
+          "animais": { "value": 0 },
+          "humanos": { "value": 0 },
+          "plantas": { "value": 0 },
+          "arkanun": { "value": 0 },
+          "spiritum": { "value": 0 },
+          "metamagia": { "value": 0 }
+        }
       }
     }
   },
@@ -36,7 +57,8 @@
       "armadura",
       "item",
       "pericia-combate",
-      "kit"
+      "kit",
+      "ritual"
     ],
     "templates": {
       "base": { "description": { "value": "" } }
@@ -81,11 +103,18 @@
     },
     "kit": {
       "templates": ["base"],
-      "cost": {
-        "aprimoramento": 0,
-        "pericia": 0
-      },
+      "cost": { "aprimoramento": 0, "pericia": 0 },
       "recipe": ""
+    },
+    "ritual": {
+      "templates": ["base"],
+      "pm_cost": 1,
+      "focus": 1,
+      "forma": "criar",
+      "caminho": "fogo",
+      "alcance": "10 m",
+      "duracao": "1 cena",
+      "dano": "1d6"
     }
   }
 }

@@ -84,6 +84,7 @@
     <a class="item" data-tab="principal">Principal</a>
     <a class="item" data-tab="pericias">Perícias</a>
     <a class="item" data-tab="combate">Combate</a>
+    <a class="item" data-tab="magia">Magia</a>
     <a class="item" data-tab="aprimoramentos">Aprimoramentos</a>
     <a class="item" data-tab="equipamentos">Equipamentos</a>
     <a class="item" data-tab="descricao">Descrição</a>
@@ -106,28 +107,7 @@
         </div>
         <hr />
       {{/if}}
-      <div class="character-details flex-group-center">
-        <div class="form-group">
-          <label>Idade</label>
-          <input
-            type="number"
-            name="system.details.age.value"
-            value="{{system.details.age.value}}"
-          />
-        </div>
-        <div class="form-group">
-          <label>Pontos de Perícia (Gastos/Total)</label>
-          <div class="skill-points-display">
-            <span>{{system.details.skillpoints.spent}}
-              /
-              {{system.details.skillpoints.total}}</span>
-            <a
-              class="calculate-skill-points"
-              title="Calcular Total (10*Idade + 5*INT)"
-            ><i class="fas fa-calculator"></i></a>
-          </div>
-        </div>
-      </div>
+
       <hr />
       <div class="attributes-header flexrow">
         <div class="attribute-label">Atributo</div>
@@ -293,6 +273,29 @@
     </div>
 
     <div class="tab" data-group="primary" data-tab="pericias">
+
+      <div class="character-details flex-group-center">
+        <div class="form-group">
+          <label>Idade</label>
+          <input
+            type="number"
+            name="system.details.age.value"
+            value="{{system.details.age.value}}"
+          />
+        </div>
+        <div class="form-group">
+          <label>Pontos de Perícia (Gastos/Total)</label>
+          <div class="skill-points-display">
+            <span>{{system.details.skillpoints.spent}}
+              /
+              {{system.details.skillpoints.total}}</span>
+            <a
+              class="calculate-skill-points"
+              title="Calcular Total (10*Idade + 5*INT)"
+            ><i class="fas fa-calculator"></i></a>
+          </div>
+        </div>
+      </div>
       <ol class="items-list">
         <li class="item flexrow items-header">
           <div class="item-name flex-2">Nome</div>
@@ -395,6 +398,154 @@
                   class="fas fa-edit"
                 ></i></a>
               <a class="item-control item-delete" title="Deletar Armadura"><i
+                  class="fas fa-trash"
+                ></i></a>
+            </div>
+          </li>
+        {{/each}}
+      </ol>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="magia">
+      <div class="magic-summary flex-group-center">
+        <div class="resource">
+          <label>Pontos de Magia</label>
+          <span>{{system.resources.magia.value}}
+            /
+            {{system.resources.magia.max}}</span>
+        </div>
+        <div class="resource">
+          <label>Pontos de Focus</label>
+          <span>{{system.resources.focus.value}}
+            /
+            {{system.resources.focus.max}}</span>
+        </div>
+      </div>
+      <hr />
+
+      <div class="grid grid-3col">
+        <div class="forms">
+          <h4>Formas</h4>
+          <div class="form-group">
+            <label>Criar</label>
+            <input
+              type="number"
+              name="system.magia.formas.criar.value"
+              value="{{system.magia.formas.criar.value}}"
+            />
+          </div>
+          <div class="form-group">
+            <label>Entender</label>
+            <input
+              type="number"
+              name="system.magia.formas.entender.value"
+              value="{{system.magia.formas.entender.value}}"
+            />
+          </div>
+          <div class="form-group">
+            <label>Controlar</label>
+            <input
+              type="number"
+              name="system.magia.formas.controlar.value"
+              value="{{system.magia.formas.controlar.value}}"
+            />
+          </div>
+        </div>
+
+        <div class="paths grid-span-2">
+          <h4>Caminhos</h4>
+          <div class="grid grid-3col">
+            <div class="form-group"><label>Água</label><input
+                type="number"
+                name="system.magia.caminhos.agua.value"
+                value="{{system.magia.caminhos.agua.value}}"
+              /></div>
+            <div class="form-group"><label>Ar</label><input
+                type="number"
+                name="system.magia.caminhos.ar.value"
+                value="{{system.magia.caminhos.ar.value}}"
+              /></div>
+            <div class="form-group"><label>Fogo</label><input
+                type="number"
+                name="system.magia.caminhos.fogo.value"
+                value="{{system.magia.caminhos.fogo.value}}"
+              /></div>
+            <div class="form-group"><label>Luz</label><input
+                type="number"
+                name="system.magia.caminhos.luz.value"
+                value="{{system.magia.caminhos.luz.value}}"
+              /></div>
+            <div class="form-group"><label>Terra</label><input
+                type="number"
+                name="system.magia.caminhos.terra.value"
+                value="{{system.magia.caminhos.terra.value}}"
+              /></div>
+            <div class="form-group"><label>Trevas</label><input
+                type="number"
+                name="system.magia.caminhos.trevas.value"
+                value="{{system.magia.caminhos.trevas.value}}"
+              /></div>
+            <div class="form-group"><label>Animais</label><input
+                type="number"
+                name="system.magia.caminhos.animais.value"
+                value="{{system.magia.caminhos.animais.value}}"
+              /></div>
+            <div class="form-group"><label>Humanos</label><input
+                type="number"
+                name="system.magia.caminhos.humanos.value"
+                value="{{system.magia.caminhos.humanos.value}}"
+              /></div>
+            <div class="form-group"><label>Plantas</label><input
+                type="number"
+                name="system.magia.caminhos.plantas.value"
+                value="{{system.magia.caminhos.plantas.value}}"
+              /></div>
+            <div class="form-group"><label>Arkanun</label><input
+                type="number"
+                name="system.magia.caminhos.arkanun.value"
+                value="{{system.magia.caminhos.arkanun.value}}"
+              /></div>
+            <div class="form-group"><label>Spiritum</label><input
+                type="number"
+                name="system.magia.caminhos.spiritum.value"
+                value="{{system.magia.caminhos.spiritum.value}}"
+              /></div>
+            <div class="form-group"><label>Metamagia</label><input
+                type="number"
+                name="system.magia.caminhos.metamagia.value"
+                value="{{system.magia.caminhos.metamagia.value}}"
+              /></div>
+          </div>
+        </div>
+      </div>
+      <hr />
+
+      <ol class="items-list">
+        <li class="item flexrow items-header">
+          <div class="item-name flex-2">Rituais Aprendidos</div>
+          <div class="item-data">Custo PM</div>
+          <div class="item-data">Focus</div>
+          <div class="item-controls">
+            <a
+              class="item-control item-create"
+              title="Adicionar Ritual"
+              data-type="ritual"
+            ><i class="fas fa-plus"></i> Adicionar</a>
+          </div>
+        </li>
+        {{#each system.rituais as |item id|}}
+          <li class="item flexrow" data-item-id="{{item._id}}">
+            <div class="item-name flex-2 rollable" title="Ver Descrição">
+              <img src="{{item.img}}" width="24" height="24" />
+              <h4>{{item.name}}</h4>
+            </div>
+            <div class="item-data">{{item.system.pm_cost}}</div>
+            <div class="item-data">{{item.system.focus}}</div>
+            <div class="item-controls">
+              <a class="item-control item-edit" title="Editar Ritual"><i
+                  class="fas fa-edit"
+                ></i></a>
+              <a class="item-control item-delete" title="Deletar Ritual"><i
                   class="fas fa-trash"
                 ></i></a>
             </div>

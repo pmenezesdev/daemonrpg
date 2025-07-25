@@ -1,0 +1,88 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <img
+      class="profile-img"
+      src="{{item.img}}"
+      data-edit="img"
+      title="{{item.name}}"
+    />
+    <div class="header-fields">
+      <h1 class="charname"><input
+          name="name"
+          type="text"
+          value="{{item.name}}"
+          placeholder="Nome do Ritual"
+        /></h1>
+    </div>
+  </header>
+
+  <section class="sheet-body">
+    <div class="grid grid-3col">
+      <div class="form-group">
+        <label>Custo em Pontos de Magia</label>
+        <input type="number" name="system.pm_cost" value="{{system.pm_cost}}" />
+      </div>
+      <div class="form-group">
+        <label>Focus Total Necessário</label>
+        <input type="number" name="system.focus" value="{{system.focus}}" />
+      </div>
+      <div class="form-group">
+        <label>Dano</label>
+        <input type="text" name="system.dano" value="{{system.dano}}" />
+      </div>
+    </div>
+
+    <div class="grid grid-2col">
+      <div class="form-group">
+        <label>Forma</label>
+        <select name="system.forma">
+          {{#select system.forma}}
+            <option value="criar">Criar</option>
+            <option value="entender">Entender</option>
+            <option value="controlar">Controlar</option>
+          {{/select}}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Caminho</label>
+        <select name="system.caminho">
+          {{#select system.caminho}}
+            <option value="agua">Água</option>
+            <option value="ar">Ar</option>
+            <option value="fogo">Fogo</option>
+            <option value="luz">Luz</option>
+            <option value="terra">Terra</option>
+            <option value="trevas">Trevas</option>
+            <option value="animais">Animais</option>
+            <option value="humanos">Humanos</option>
+            <option value="plantas">Plantas</option>
+            <option value="arkanun">Arkanun</option>
+            <option value="spiritum">Spiritum</option>
+            <option value="metamagia">Metamagia</option>
+          {{/select}}
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-2col">
+      <div class="form-group">
+        <label>Alcance</label>
+        <input type="text" name="system.alcance" value="{{system.alcance}}" />
+      </div>
+      <div class="form-group">
+        <label>Duração</label>
+        <input type="text" name="system.duracao" value="{{system.duracao}}" />
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+      <label>Descrição / Efeitos</label>
+      <textarea
+        name="system.description.value"
+      >{{system.description.value}}</textarea>
+    </div>
+
+  </section>
+</form>
