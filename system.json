@@ -14,17 +14,13 @@
   "readme": "README.md",
   "bugs": "https://github.com/pmenezesdev/daemonrpg/issues",
   "changelog": "CHANGELOG.md",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "compatibility": {
     "minimum": "11",
     "verified": "12.343"
   },
-  "esmodules": [
-    "module/daemonrpg.mjs"
-  ],
-  "styles": [
-    "css/daemonrpg.css"
-  ],
+  "esmodules": ["module/daemonrpg.mjs"],
+  "styles": ["css/daemonrpg.css"],
   "languages": [
     {
       "lang": "pt-BR",
