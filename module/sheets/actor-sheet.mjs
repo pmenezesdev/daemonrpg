@@ -38,7 +38,8 @@ export class DaemonActorSheet extends ActorSheet {
     const periciasCombate = [];
     const vantagens = [];
     const desvantagens = [];
-    const rituais = []; // Nova lista para rituais
+    const rituais = [];
+    const cyberwares = []; // Nova lista para cyberware
     let activeKit = null;
 
     for (const i of context.items) {
@@ -63,7 +64,10 @@ export class DaemonActorSheet extends ActorSheet {
           break;
         case "ritual":
           rituais.push(i);
-          break; // Adiciona o ritual à sua lista
+          break;
+        case "cyberware":
+          cyberwares.push(i);
+          break; // Adiciona o cyberware à sua lista
         case "aprimoramento":
           if (i.system.cost >= 0) {
             vantagens.push(i);
@@ -80,7 +84,8 @@ export class DaemonActorSheet extends ActorSheet {
     context.system.armaduras = armaduras;
     context.system.itens = itens;
     context.system.periciasCombate = periciasCombate;
-    context.system.rituais = rituais; // Passa a lista de rituais para o HTML
+    context.system.rituais = rituais;
+    context.system.cyberwares = cyberwares; // Passa a lista de cyberwares para o HTML
     context.system.activeKit = activeKit;
   }
 

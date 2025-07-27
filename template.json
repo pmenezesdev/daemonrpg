@@ -24,7 +24,8 @@
         "biography": { "value": "" },
         "age": { "value": 30 },
         "skillpoints": { "total": 0, "spent": 0 },
-        "aprimoramentos": { "positivos": 0, "negativos": 0, "disponivel": 5 }
+        "aprimoramentos": { "positivos": 0, "negativos": 0, "disponivel": 5 },
+        "cyberware": { "total": 0, "spent": 0 }
       },
       "magia": {
         "formas": {
@@ -58,7 +59,8 @@
       "item",
       "pericia-combate",
       "kit",
-      "ritual"
+      "ritual",
+      "cyberware"
     ],
     "templates": {
       "base": { "description": { "value": "" } }
@@ -115,6 +117,10 @@
       "alcance": "10 m",
       "duracao": "1 cena",
       "dano": "1d6"
+    },
+    "cyberware": {
+      "templates": ["base"],
+      "cost": 0.5
     }
   }
 }

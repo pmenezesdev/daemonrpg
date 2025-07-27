@@ -635,6 +635,44 @@
           </li>
         {{/each}}
       </ol>
+
+      <div class="cyberware-summary flex-group-center">
+        <h4>Calculadora de Cyberware</h4>
+        <div class="stat">
+          <label>Pontos de Cyberware (Gastos / Total)</label>
+          <span>{{system.details.cyberware.spent}}
+            /
+            {{system.details.cyberware.total}}</span>
+        </div>
+      </div>
+
+      <ol class="items-list">
+        <li class="item flexrow items-header">
+          <div class="item-name flex-2">Implante de Cyberware</div>
+          <div class="item-data">Custo</div>
+          <div class="item-controls">
+            <a
+              class="item-control item-create"
+              title="Adicionar Cyberware"
+              data-type="cyberware"
+            ><i class="fas fa-plus"></i> Adicionar</a>
+          </div>
+        </li>
+        {{#each system.cyberwares as |item id|}}
+          <li class="item flexrow" data-item-id="{{item._id}}">
+            <div class="item-name flex-2">{{item.name}}</div>
+            <div class="item-data">{{item.system.cost}}</div>
+            <div class="item-controls">
+              <a class="item-control item-edit" title="Editar Cyberware"><i
+                  class="fas fa-edit"
+                ></i></a>
+              <a class="item-control item-delete" title="Deletar Cyberware"><i
+                  class="fas fa-trash"
+                ></i></a>
+            </div>
+          </li>
+        {{/each}}
+      </ol>
     </div>
 
     <div class="tab equipamentos" data-group="primary" data-tab="equipamentos">

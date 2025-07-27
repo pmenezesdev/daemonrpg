@@ -69,10 +69,7 @@ export class DaemonActor extends Actor {
     systemData.details.skillpoints.spent = pontosGastos;
 
     // --- CÁLCULO DE PONTOS DE APRIMORAMENTO ---
-
-    // LINHA DE CÓDIGO CORRIGIDA: Garante que o objeto 'aprimoramentos' sempre exista.
     systemData.details.aprimoramentos = systemData.details.aprimoramentos || {};
-
     const aprimoramentos = this.items.filter(
       (item) => item.type === "aprimoramento"
     );
@@ -88,11 +85,67 @@ export class DaemonActor extends Actor {
     }
     systemData.details.aprimoramentos.positivos = pontosPositivos;
     systemData.details.aprimoramentos.negativos = Math.abs(pontosNegativos);
-
     const pontosIniciais = 5;
     systemData.details.aprimoramentos.disponivel =
       pontosIniciais +
       systemData.details.aprimoramentos.negativos -
       pontosPositivos;
+
+    // --- CÁLCULO DE PONTOS DE CYBERWARE ---
+    systemData.details.cyberware = systemData.details.cyberware || {
+      total: 0,
+      spent: 0,
+    };
+    let cyberwareBudget = 0;
+    const aprimoramentoCibernetico = this.items.find(
+      (item) =>
+        item.type === "aprimoramento" &&
+        item.name.toLowerCase().startsWith("cibernéticos")
+    );
+    if (aprimoramentoCibernetico) {
+      const cost = aprimoramentoCibernetico.system.cost || 0;
+      switch (cost) {
+        case 1:
+          cyberwareBudget = 1;
+          break;
+        case 2:
+          cyberwareBudget = 3;
+          break;
+        case 3:
+          cyberwareBudget = 5;
+          break;
+        case 4:
+          cyberwareBudget = 7;
+          break;
+        case 5:
+          cyberwareBudget = 10;
+          break;
+        case 6:
+          cyberwareBudget = 13;
+          break;
+        case 7:
+          cyberwareBudget = 16;
+          break;
+        case 8:
+          cyberwareBudget = 19;
+          break;
+        case 9:
+          cyberwareBudget = 23;
+          break;
+        case 10:
+          cyberwareBudget = 27;
+          break;
+      }
+    }
+    systemData.details.cyberware.total = cyberwareBudget;
+
+    const cyberwaresInstalados = this.items.filter(
+      (item) => item.type === "cyberware"
+    );
+    let pontosGastosCyber = 0;
+    for (const cyber of cyberwaresInstalados) {
+      pontosGastosCyber += cyber.system.cost || 0;
+    }
+    systemData.details.cyberware.spent = pontosGastosCyber;
   }
 }
