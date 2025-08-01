@@ -579,6 +579,16 @@
           >{{system.details.aprimoramentos.disponivel}}</span>
         </div>
       </div>
+
+      <div class="cyberware-summary flex-group-center">
+        <h4>Calculadora de Cyberware</h4>
+        <div class="stat">
+          <label>Pontos de Cyberware (Gastos / Total)</label>
+          <span>{{system.details.cyberware.spent}}
+            /
+            {{system.details.cyberware.total}}</span>
+        </div>
+      </div>
       <hr />
 
       {{! Lista de Vantagens }}
@@ -635,17 +645,8 @@
           </li>
         {{/each}}
       </ol>
-
-      <div class="cyberware-summary flex-group-center">
-        <h4>Calculadora de Cyberware</h4>
-        <div class="stat">
-          <label>Pontos de Cyberware (Gastos / Total)</label>
-          <span>{{system.details.cyberware.spent}}
-            /
-            {{system.details.cyberware.total}}</span>
-        </div>
-      </div>
-
+      
+      {{! Lista de Cyberware }}
       <ol class="items-list">
         <li class="item flexrow items-header">
           <div class="item-name flex-2">Implante de Cyberware</div>
