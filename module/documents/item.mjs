@@ -37,13 +37,17 @@ export class DaemonItem extends Item {
       itemData.total_def = itemData.gasto_def || 0;
       return;
     }
+
+    // LÓGICA DO CUSTO DOBRADO (aplica-se apenas ao ataque)
+    const pontosGastosAtk = itemData.gasto_atk || 0;
+    const pontosEfetivosAtk = itemData.custoDobrado ? Math.floor(pontosGastosAtk / 2) : pontosGastosAtk;
+    const pontosGastosDef = itemData.gasto_def || 0; // A defesa nunca tem custo dobrado
+
     const baseAttributeKey = itemData.attribute || "none";
-    const baseAttributeValue =
-      baseAttributeKey !== "none"
-        ? this.actor.system.attributes[baseAttributeKey]?.value || 0
-        : 0;
-    itemData.total_atk = (itemData.gasto_atk || 0) + baseAttributeValue;
-    itemData.total_def = (itemData.gasto_def || 0) + baseAttributeValue;
+    const baseAttributeValue = baseAttributeKey !== "none" ? this.actor.system.attributes[baseAttributeKey]?.value || 0 : 0;
+
+    itemData.total_atk = pontosEfetivosAtk + baseAttributeValue;
+    itemData.total_def = pontosGastosDef + baseAttributeValue;
   }
 
   async roll() {

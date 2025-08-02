@@ -1,18 +1,8 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
   <header class="sheet-header">
-    <img
-      class="profile-img"
-      src="{{item.img}}"
-      data-edit="img"
-      title="{{item.name}}"
-    />
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields">
-      <h1 class="charname"><input
-          name="name"
-          type="text"
-          value="{{item.name}}"
-          placeholder="Nome da Perícia"
-        /></h1>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Nome da Perícia"/></h1>
     </div>
   </header>
   <section class="sheet-body">
@@ -34,14 +24,17 @@
     </div>
     <div class="form-group">
       <label>Pontos Gastos</label>
-      <input
-        type="text"
-        name="system.gasto"
-        value="{{system.gasto}}"
-        data-dtype="Number"
-      />
+      <input type="text" name="system.gasto" value="{{system.gasto}}" data-dtype="Number"/>
     </div>
-    <hr />
+
+    {{!-- NOVO INTERRUPTOR --}}
+    <div class="form-group-checkbox">
+      <label>Custo Dobrado (2 para 1)</label>
+      <input type="checkbox" name="system.custoDobrado" {{checked system.custoDobrado}}/>
+      <p class="notes">Ative para perícias de ataque à distância. Cada 2 pontos gastos valerão 1% no total.</p>
+    </div>
+
+    <hr/>
     <div class="form-group">
       <h3>Total da Perícia: {{system.total}}%</h3>
     </div>

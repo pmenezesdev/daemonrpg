@@ -1,18 +1,8 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
   <header class="sheet-header">
-    <img
-      class="profile-img"
-      src="{{item.img}}"
-      data-edit="img"
-      title="{{item.name}}"
-    />
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields">
-      <h1 class="charname"><input
-          name="name"
-          type="text"
-          value="{{item.name}}"
-          placeholder="Nome da Perícia de Combate"
-        /></h1>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Nome da Perícia de Combate"/></h1>
     </div>
   </header>
   <section class="sheet-body">
@@ -29,32 +19,28 @@
     </div>
     <div class="form-group">
       <label>Arma Vinculada (Nome Exato do Item)</label>
-      <input
-        type="text"
-        name="system.armaVinculada"
-        value="{{system.armaVinculada}}"
-      />
+      <input type="text" name="system.armaVinculada" value="{{system.armaVinculada}}"/>
     </div>
-    <hr />
-    <div class="form-group">
-      <label>Pontos Gastos (Ataque)</label>
-      <input
-        type="text"
-        name="system.gasto_atk"
-        value="{{system.gasto_atk}}"
-        data-dtype="Number"
-      />
+    <hr/>
+    <div class="grid grid-2col">
+      <div class="form-group">
+        <label>Pontos Gastos (Ataque)</label>
+        <input type="text" name="system.gasto_atk" value="{{system.gasto_atk}}" data-dtype="Number"/>
+      </div>
+      <div class="form-group">
+        <label>Pontos Gastos (Defesa)</label>
+        <input type="text" name="system.gasto_def" value="{{system.gasto_def}}" data-dtype="Number"/>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Pontos Gastos (Defesa)</label>
-      <input
-        type="text"
-        name="system.gasto_def"
-        value="{{system.gasto_def}}"
-        data-dtype="Number"
-      />
+    
+    {{!-- NOVO INTERRUPTOR --}}
+    <div class="form-group-checkbox">
+      <label>Custo Dobrado (Ataque)</label>
+      <input type="checkbox" name="system.custoDobrado" {{checked system.custoDobrado}}/>
+      <p class="notes">Ative para perícias de ataque à distância. O custo dos pontos de ataque será dobrado.</p>
     </div>
-    <hr />
+
+    <hr/>
     <div class="form-group totals">
       <h3>Ataque Total: {{system.total_atk}}%</h3>
       <h3>Defesa Total: {{system.total_def}}%</h3>

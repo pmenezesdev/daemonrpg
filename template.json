@@ -2,66 +2,23 @@
   "Actor": {
     "types": ["personagem"],
     "personagem": {
-      "attributes": {
-        "fr": { "value": 10, "mod": 10 },
-        "con": { "value": 10, "mod": 10 },
-        "dex": { "value": 10, "mod": 10 },
-        "agi": { "value": 10, "mod": 10 },
-        "int": { "value": 10, "mod": 10 },
-        "will": { "value": 10, "mod": 10 },
-        "per": { "value": 10, "mod": 10 },
-        "car": { "value": 10, "mod": 10 }
-      },
-      "resources": {
-        "pv": { "value": 11, "max": 11 },
-        "ph": { "value": 0, "max": 0 },
-        "magia": { "value": 1, "max": 1 },
-        "focus": { "value": 2, "max": 2 }
-      },
+      "attributes": { "fr": { "value": 10, "mod": 10 }, "con": { "value": 10, "mod": 10 }, "dex": { "value": 10, "mod": 10 }, "agi": { "value": 10, "mod": 10 }, "int": { "value": 10, "mod": 10 }, "will": { "value": 10, "mod": 10 }, "per": { "value": 10, "mod": 10 }, "car": { "value": 10, "mod": 10 } },
+      "resources": { "pv": { "value": 11, "max": 11 }, "ph": { "value": 0, "max": 0 }, "magia": { "value": 1, "max": 1 }, "focus": { "value": 2, "max": 2 } },
       "details": {
-        "level": { "value": 1 },
-        "xp": { "value": 0 },
-        "biography": { "value": "" },
-        "age": { "value": 30 },
+        "level": { "value": 1 }, "xp": { "value": 0 }, "biography": { "value": "" }, "age": { "value": 30 }, "profession": "",
         "skillpoints": { "total": 0, "spent": 0 },
         "aprimoramentos": { "positivos": 0, "negativos": 0, "disponivel": 5 },
-        "cyberware": { "total": 0, "spent": 0 }
+        "cyberware": { "total": 0, "spent": 0 },
+        "creation": { "attribute_points": 101, "aprimoramentos_pos": 5, "aprimoramentos_neg": 3 }
       },
       "magia": {
-        "formas": {
-          "criar": { "value": 0 },
-          "entender": { "value": 0 },
-          "controlar": { "value": 0 }
-        },
-        "caminhos": {
-          "agua": { "value": 0 },
-          "ar": { "value": 0 },
-          "fogo": { "value": 0 },
-          "luz": { "value": 0 },
-          "terra": { "value": 0 },
-          "trevas": { "value": 0 },
-          "animais": { "value": 0 },
-          "humanos": { "value": 0 },
-          "plantas": { "value": 0 },
-          "arkanun": { "value": 0 },
-          "spiritum": { "value": 0 },
-          "metamagia": { "value": 0 }
-        }
+        "formas": { "criar": { "value": 0 }, "entender": { "value": 0 }, "controlar": { "value": 0 } },
+        "caminhos": { "agua": { "value": 0 }, "ar": { "value": 0 }, "fogo": { "value": 0 }, "luz": { "value": 0 }, "terra": { "value": 0 }, "trevas": { "value": 0 }, "animais": { "value": 0 }, "humanos": { "value": 0 }, "plantas": { "value": 0 }, "arkanun": { "value": 0 }, "spiritum": { "value": 0 }, "metamagia": { "value": 0 } }
       }
     }
   },
   "Item": {
-    "types": [
-      "pericia",
-      "aprimoramento",
-      "arma",
-      "armadura",
-      "item",
-      "pericia-combate",
-      "kit",
-      "ritual",
-      "cyberware"
-    ],
+    "types": ["pericia", "aprimoramento", "arma", "armadura", "item", "pericia-combate", "kit", "ritual", "cyberware"],
     "templates": {
       "base": { "description": { "value": "" } }
     },
@@ -69,30 +26,12 @@
       "templates": ["base"],
       "gasto": 10,
       "attribute": "int",
-      "total": 10
+      "total": 10,
+      "custoDobrado": false
     },
     "aprimoramento": { "templates": ["base"], "cost": 1 },
-    "arma": {
-      "templates": ["base"],
-      "damage": "1d6",
-      "weaponType": "corporal",
-      "initiative": 0,
-      "range": ""
-    },
-    "armadura": {
-      "templates": ["base"],
-      "equipped": true,
-      "penalties": { "dex": 0, "agi": 0 },
-      "ip": {
-        "cinetico": 1,
-        "balistico": 0,
-        "fogo": 0,
-        "frio": 0,
-        "eletrico": 0,
-        "acido": 0,
-        "outros": ""
-      }
-    },
+    "arma": { "templates": ["base"], "damage": "1d6", "weaponType": "corporal", "initiative": 0, "range": "" },
+    "armadura":{ "templates": ["base"], "equipped": true, "penalties": { "dex": 0, "agi": 0 }, "ip": { "cinetico": 1, "balistico": 0, "fogo": 0, "frio": 0, "eletrico": 0, "acido": 0, "outros": "" } },
     "item": { "templates": ["base"], "quantity": 1 },
     "pericia-combate": {
       "templates": ["base"],
@@ -101,26 +40,11 @@
       "attribute": "dex",
       "total_atk": 10,
       "total_def": 10,
-      "armaVinculada": ""
+      "armaVinculada": "",
+      "custoDobrado": false
     },
-    "kit": {
-      "templates": ["base"],
-      "cost": { "aprimoramento": 0, "pericia": 0 },
-      "recipe": ""
-    },
-    "ritual": {
-      "templates": ["base"],
-      "pm_cost": 1,
-      "focus": 1,
-      "forma": "criar",
-      "caminho": "fogo",
-      "alcance": "10 m",
-      "duracao": "1 cena",
-      "dano": "1d6"
-    },
-    "cyberware": {
-      "templates": ["base"],
-      "cost": 0.5
-    }
+    "kit": { "templates": ["base"], "cost": { "aprimoramento": 0, "pericia": 0 }, "recipe": "" },
+    "ritual": { "templates": ["base"], "pm_cost": 1, "focus": 1, "forma": "criar", "caminho": "fogo", "alcance": "10 m", "duracao": "1 cena", "dano": "1d6" },
+    "cyberware": { "templates": ["base"], "cost": 0.5 }
   }
 }
