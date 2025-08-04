@@ -104,6 +104,7 @@ export class DaemonActorSheet extends ActorSheet {
       .find(".calculate-skill-points")
       .on("click", this._onCalculateSkillPoints.bind(this));
     html.find(".kit-remove").on("click", this._onRemoveKit.bind(this));
+    html.find(".attribute-vs-attribute-test").on("click", this._onAttributeVsAttributeTest.bind(this));
   }
 
   /** @override */
@@ -348,6 +349,154 @@ export class DaemonActorSheet extends ActorSheet {
     ui.notifications.info(
       `Total de Pontos de Perícia calculado: ${totalPoints}`
     );
+  }
+  
+  /**
+   * Método para realizar testes de atributo vs atributo
+   * Implementa a regra de 50% + (Ativo - Passivo) × 5
+   */
+  async _onAttributeVsAttributeTest(event) {
+    event.preventDefault();
+    
+    // Lista de atributos disponíveis para seleção
+    const attributes = {
+      fr: "Força",
+      con: "Constituição",
+      dex: "Destreza",
+      agi: "Agilidade",
+      int: "Inteligência",
+      per: "Percepção",
+      vol: "Vontade",
+      car: "Carisma"
+    };
+    
+    // Cria as opções para o select de atributos
+    let attributeOptions = '';
+    for (let [key, label] of Object.entries(attributes)) {
+      attributeOptions += `<option value="${key}">${label}</option>`;
+    }
+    
+    // Conteúdo do diálogo
+    const content = `
+      <form>
+        <div class="form-group">
+          <label>Atributo Ativo (Atacante):</label>
+          <select name="activeAttribute">${attributeOptions}</select>
+        </div>
+        <div class="form-group">
+          <label>Atributo Passivo (Defensor):</label>
+          <select name="passiveAttribute">${attributeOptions}</select>
+        </div>
+        <div class="form-group">
+          <label>Modificador (opcional):</label>
+          <input type="number" name="modifier" value="0" step="5">
+          <p class="notes">Modificador em porcentagem (ex: +10, -15)</p>
+        </div>
+      </form>
+    `;
+    
+    // Cria o diálogo
+    new Dialog({
+      title: "Teste de Atributo vs Atributo",
+      content: content,
+      buttons: {
+        roll: {
+          icon: '<i class="fas fa-dice-d20"></i>',
+          label: "Rolar",
+          callback: async (html) => {
+            // Obtém os valores selecionados
+            const activeAttrKey = html.find('[name="activeAttribute"]').val();
+            const passiveAttrKey = html.find('[name="passiveAttribute"]').val();
+            const modifier = parseInt(html.find('[name="modifier"]').val()) || 0;
+            
+            // Obtém os valores dos atributos
+            const activeAttrValue = this.actor.system.attributes[activeAttrKey].value || 0;
+            
+            // Para o atributo passivo, precisamos obter o valor do token alvo
+            // Como isso requer seleção de token, vamos criar um segundo diálogo
+            
+            // Verifica se há tokens selecionados
+            const selectedTokens = canvas.tokens.controlled;
+            let passiveActor = null;
+            
+            if (selectedTokens.length === 1 && selectedTokens[0].actor.id !== this.actor.id) {
+              // Se há exatamente um token selecionado e não é o ator atual
+              passiveActor = selectedTokens[0].actor;
+              this._finalizeAttributeVsAttributeTest(activeAttrKey, passiveAttrKey, activeAttrValue, passiveActor, modifier, attributes);
+            } else {
+              // Pede ao usuário para selecionar um token
+              ui.notifications.info("Selecione o token do defensor e clique em 'Continuar'");
+              
+              new Dialog({
+                title: "Selecione o Defensor",
+                content: `<p>Por favor, selecione o token do defensor no mapa e clique em 'Continuar'.</p>`,
+                buttons: {
+                  continue: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: "Continuar",
+                    callback: () => {
+                      const newSelectedTokens = canvas.tokens.controlled;
+                      if (newSelectedTokens.length !== 1) {
+                        ui.notifications.error("Você deve selecionar exatamente um token!");
+                        return;
+                      }
+                      
+                      passiveActor = newSelectedTokens[0].actor;
+                      this._finalizeAttributeVsAttributeTest(activeAttrKey, passiveAttrKey, activeAttrValue, passiveActor, modifier, attributes);
+                    }
+                  },
+                  cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Cancelar"
+                  }
+                },
+                default: "continue"
+              }).render(true);
+            }
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancelar"
+        }
+      },
+      default: "roll"
+    }).render(true);
+  }
+  
+  /**
+   * Finaliza o teste de atributo vs atributo após a seleção do defensor
+   */
+  async _finalizeAttributeVsAttributeTest(activeAttrKey, passiveAttrKey, activeAttrValue, passiveActor, modifier, attributes) {
+    // Obtém o valor do atributo passivo
+    const passiveAttrValue = passiveActor.system.attributes[passiveAttrKey].value || 0;
+    
+    // Calcula a chance de sucesso: 50% + (Ativo - Passivo) × 5
+    let successChance = 50 + (activeAttrValue - passiveAttrValue) * 5 + modifier;
+    
+    // Limita a chance entre 5% e 95%
+    successChance = Math.max(5, Math.min(95, successChance));
+    
+    // Realiza a rolagem
+    const roll = new Roll("1d100");
+    await roll.evaluate({ async: true });
+    
+    // Determina o sucesso
+    const isSuccess = roll.total <= successChance;
+    
+    // Cria a mensagem de resultado
+    const activeAttrName = attributes[activeAttrKey];
+    const passiveAttrName = attributes[passiveAttrKey];
+    
+    let flavor = `<strong>${this.actor.name}</strong> (${activeAttrName}: ${activeAttrValue}) vs <strong>${passiveActor.name}</strong> (${passiveAttrName}: ${passiveAttrValue})`;
+    flavor += isSuccess ? ` <span class="success">(Sucesso!)</span>` : ` <span class="failure">(Falha!)</span>`;
+    
+    // Envia a mensagem para o chat
+    roll.toMessage({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavor,
+      content: `<div class="dice-roll"><div class="dice-result"><h4 class="dice-total ${isSuccess ? "success" : "failure"}">${roll.total}</h4><div class="dice-formula">/ ${successChance}%</div></div></div>`
+    });
   }
   async _onItemAttack(event) {
     event.preventDefault();

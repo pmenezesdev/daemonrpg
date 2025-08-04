@@ -10,12 +10,34 @@ import { DaemonItemSheet } from "./sheets/item-sheet.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { DAEMON } from "./helpers/config.mjs";
 
+// Importar folhas de estilo adicionais
+const daemonExtensionsCss = "daemon-extensions.css";
+const cssPath = "systems/daemonrpg/css/";
+
+/**
+ * Função auxiliar para carregar folhas de estilo
+ * @param {string} path - Caminho para o arquivo CSS
+ */
+function loadStylesheet(path) {
+  const head = document.getElementsByTagName("head")[0];
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = path;
+  link.media = "all";
+  head.appendChild(link);
+}
+
+
 /* -------------------------------------------- */
 /* Init Hook                                   */
 /* -------------------------------------------- */
 
 Hooks.once("init", function () {
   console.log("Daemon RPG | Initializing System");
+  
+  // Carregar folhas de estilo adicionais
+  loadStylesheet(cssPath + daemonExtensionsCss);
 
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
@@ -146,7 +168,7 @@ function rollItemMacro(itemUuid) {
 }
 
 // ================================================================= //
-// ===== NOVO HOOK PARA APLICAÇÃO DE DANO ========================== //
+// ===== HOOKS PARA APLICAÇÃO DE DANO E STATUS DE SAÚDE ============= //
 // ================================================================= //
 
 // Este Hook é ativado toda vez que uma mensagem é renderizada no chat.
@@ -186,7 +208,41 @@ Hooks.on("renderChatMessage", (chatMessage, html, messageData) => {
 
         // Mostra o dano sofrido no token (aqueles números que flutuam)
         token.showFloatyText({ damage: -danoFinal });
+        
+        // Verifica se o personagem ficou inconsciente (PV <= 0)
+        if (novosPV <= 0) {
+          // Adiciona o efeito de inconsciente ao token
+          const unconsciousEffect = {
+            label: "Inconsciente",
+            icon: "icons/svg/unconscious.svg",
+            changes: [],
+            flags: { core: { statusId: "unconscious" } }
+          };
+          
+          // Verifica se o efeito já existe antes de adicionar
+          const existingEffect = actor.effects.find(e => e.flags?.core?.statusId === "unconscious");
+          if (!existingEffect) {
+            actor.createEmbeddedDocuments("ActiveEffect", [unconsciousEffect]);
+            ui.notifications.info(`${actor.name} ficou inconsciente!`);
+          }
+        }
       });
     });
+  }
+});
+
+// Hook para remover o status de inconsciente quando o personagem recupera PVs acima de 0
+Hooks.on("updateActor", (actor, changes, options, userId) => {
+  if (!changes.system?.resources?.pv?.value) return;
+  
+  const newPV = changes.system.resources.pv.value;
+  
+  // Se os PVs foram restaurados para acima de 0, remove o efeito de inconsciente
+  if (newPV > 0) {
+    const unconsciousEffect = actor.effects.find(e => e.flags?.core?.statusId === "unconscious");
+    if (unconsciousEffect) {
+      actor.deleteEmbeddedDocuments("ActiveEffect", [unconsciousEffect.id]);
+      ui.notifications.info(`${actor.name} recuperou a consciência!`);
+    }
   }
 });

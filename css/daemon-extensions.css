@@ -1,0 +1,43 @@
+.daemonrpg .attribute-vs-test {
+  grid-column: span 3;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.daemonrpg .attribute-vs-attribute-test {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #4b4a44;
+  color: #fff;
+  border: 1px solid #000;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.daemonrpg .attribute-vs-attribute-test:hover {
+  background: #6f6e65;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para os resultados de teste */
+.dice-total.success {
+  color: green;
+  font-weight: bold;
+}
+
+.dice-total.failure {
+  color: red;
+  font-weight: bold;
+}
+
+span.success {
+  color: green;
+  font-weight: bold;
+}
+
+span.failure {
+  color: red;
+  font-weight: bold;
+}
