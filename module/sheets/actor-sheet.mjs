@@ -199,7 +199,7 @@ export class DaemonActorSheet extends ActorSheet {
               parseInt(html.find('[name="defesaAlvo"]').val()) || 0;
             const chance = 50 + ataquePersonagem - defesaAlvo;
             const roll = new Roll("1d100");
-            await roll.evaluate({ async: true });
+            await roll.evaluate();
             const critico = Math.floor(ataquePersonagem / 4);
             const isSuccess = roll.total <= chance && roll.total <= 95;
             const isCritical = roll.total <= critico;
@@ -239,7 +239,7 @@ export class DaemonActorSheet extends ActorSheet {
                   danoFormula,
                   this.actor.getRollData()
                 );
-                await danoRoll.evaluate({ async: true });
+                await danoRoll.evaluate();
                 let bonusDano = 0;
                 let formulaDisplay = danoRoll.formula;
                 if (armaUsada.system.weaponType === "corporal") {
@@ -303,7 +303,7 @@ export class DaemonActorSheet extends ActorSheet {
     const attributeName = dataset.label;
     const realizarTesteAtributo = async (valorAlvo) => {
       const roll = new Roll("1d100");
-      await roll.evaluate({ async: true });
+      await roll.evaluate();
       const success = roll.total <= valorAlvo && roll.total <= 95;
       let flavor = `Teste de <strong>${attributeName}</strong>`;
       flavor += success ? ` (Sucesso!)` : ` (Falha!)`;
@@ -479,7 +479,7 @@ export class DaemonActorSheet extends ActorSheet {
     
     // Realiza a rolagem
     const roll = new Roll("1d100");
-    await roll.evaluate({ async: true });
+    await roll.evaluate();
     
     // Determina o sucesso
     const isSuccess = roll.total <= successChance;

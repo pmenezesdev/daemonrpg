@@ -82,7 +82,7 @@ export class DaemonItem extends Item {
       case "arma":
         flavor = `Rolando Dano: <strong>${this.name}</strong>`;
         const danoRoll = new Roll(this.system.damage, this.actor.getRollData());
-        await danoRoll.evaluate({ async: true });
+        await danoRoll.evaluate();
 
         // LÓGICA CONDICIONAL DO BÔNUS DE FORÇA
         let bonusDano = 0;
@@ -116,7 +116,7 @@ export class DaemonItem extends Item {
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get("core", "rollMode");
     const roll = new Roll("1d100");
-    await roll.evaluate({ async: true });
+    await roll.evaluate();
     const success = roll.total <= valorAlvo && roll.total <= 95;
     let flavor = `Teste de Perícia: <strong>${this.name}</strong>`;
     flavor += success ? ` (Sucesso!)` : ` (Falha!)`;
