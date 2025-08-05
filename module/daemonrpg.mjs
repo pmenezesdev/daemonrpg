@@ -71,6 +71,34 @@ Hooks.once("init", function () {
   // if the transfer property on the Active Effect is true.
   CONFIG.ActiveEffect.legacyTransferral = false;
 
+  // Register system settings
+  game.settings.register("daemonrpg", "creationAttributePoints", {
+    name: "daemonrpg.Settings.creationAttributePoints.Name",
+    hint: "daemonrpg.Settings.creationAttributePoints.Hint",
+    scope: "world",
+    config: true,
+    type: Number,
+    default: 101,
+  });
+
+  game.settings.register("daemonrpg", "creationPositiveAprimoramentos", {
+    name: "daemonrpg.Settings.creationPositiveAprimoramentos.Name",
+    hint: "daemonrpg.Settings.creationPositiveAprimoramentos.Hint",
+    scope: "world",
+    config: true,
+    type: Number,
+    default: 5,
+  });
+
+  game.settings.register("daemonrpg", "creationNegativeAprimoramentos", {
+    name: "daemonrpg.Settings.creationNegativeAprimoramentos.Name",
+    hint: "daemonrpg.Settings.creationNegativeAprimoramentos.Hint",
+    scope: "world",
+    config: true,
+    type: Number,
+    default: 3,
+  });
+
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("daemonrpg", DaemonActorSheet, {
@@ -103,6 +131,28 @@ Handlebars.registerHelper("toLowerCase", function (str) {
 Hooks.once("ready", function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+});
+
+// Set initial creation values based on system settings
+Hooks.on("preCreateActor", (actor) => {
+  if (actor.type !== "personagem") return;
+  const attrPts = game.settings.get(
+    "daemonrpg",
+    "creationAttributePoints"
+  );
+  const posAprim = game.settings.get(
+    "daemonrpg",
+    "creationPositiveAprimoramentos"
+  );
+  const negAprim = game.settings.get(
+    "daemonrpg",
+    "creationNegativeAprimoramentos"
+  );
+  actor.updateSource({
+    "system.details.creation.attribute_points": attrPts,
+    "system.details.creation.aprimoramentos_pos": posAprim,
+    "system.details.creation.aprimoramentos_neg": negAprim,
+  });
 });
 
 /* -------------------------------------------- */

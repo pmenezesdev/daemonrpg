@@ -19,6 +19,20 @@
     "SheetLabels": {
       "Actor": "Ficha de Personagem Daemon",
       "Item": "Ficha de Item Daemon"
+    },
+    "Settings": {
+      "creationAttributePoints": {
+        "Name": "Pontos iniciais de atributos",
+        "Hint": "Quantidade de pontos de atributo disponíveis na criação de personagens."
+      },
+      "creationPositiveAprimoramentos": {
+        "Name": "Aprimoramentos positivos iniciais",
+        "Hint": "Quantidade de pontos de aprimoramentos positivos disponíveis na criação de personagens."
+      },
+      "creationNegativeAprimoramentos": {
+        "Name": "Aprimoramentos negativos iniciais",
+        "Hint": "Quantidade de pontos de aprimoramentos negativos permitidos na criação de personagens."
+      }
     }
   }
 }

@@ -85,7 +85,13 @@ export class DaemonActor extends Actor {
     }
     systemData.details.aprimoramentos.positivos = pontosPositivos;
     systemData.details.aprimoramentos.negativos = Math.abs(pontosNegativos);
-    const pontosIniciais = 5;
+    const pontosIniciais =
+      systemData.details.creation?.aprimoramentos_pos ??
+      game.settings.get(
+        "daemonrpg",
+        "creationPositiveAprimoramentos"
+      );
+    systemData.details.aprimoramentos.iniciais = pontosIniciais;
     systemData.details.aprimoramentos.disponivel =
       pontosIniciais +
       systemData.details.aprimoramentos.negativos -
