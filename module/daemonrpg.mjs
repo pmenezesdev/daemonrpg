@@ -233,8 +233,8 @@ Hooks.on("renderChatMessage", (chatMessage, html, messageData) => {
 
 // Hook para remover o status de inconsciente quando o personagem recupera PVs acima de 0
 Hooks.on("updateActor", (actor, changes, options, userId) => {
-  if (!changes.system?.resources?.pv?.value) return;
-  
+  if (!foundry.utils.hasProperty(changes, "system.resources.pv.value")) return;
+
   const newPV = changes.system.resources.pv.value;
   
   // Se os PVs foram restaurados para acima de 0, remove o efeito de inconsciente
